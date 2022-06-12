@@ -1,59 +1,62 @@
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
-    <PropertyGroup>
-        <PackageId>WBH.Livescoring.Frontend.API</PackageId>
-        <Authors>Marvin Auf der Landwehr, Max Dreisbusch</Authors>
-        <Product>LED Videowand LiveScoring</Product>
-        <Description>Web API</Description>
-        <PackageProjectUrl>https://github.com/videowall/sportsdata-automated-scoring</PackageProjectUrl>
-        <RepositoryUrl>https://github.com/videowall/sportsdata-automated-scoring</RepositoryUrl>
-        <RepositoryType>GIT</RepositoryType>
-        <AssemblyName>WBH.Livescoring.Frontend.API</AssemblyName>
-        <RootNamespace>WBH.Livescoring.Frontend.API</RootNamespace>
-        <Version>0.0.0.0</Version>
-        <AssemblyVersion>0.0.0.0</AssemblyVersion>
-        <AssemblyInformationalVersion>0.0.0.0</AssemblyInformationalVersion>
-        <FileVersion>0.0.0.0</FileVersion>
-    </PropertyGroup>
+	<PropertyGroup>
+		<PackageId>WBH.Livescoring.Frontend.API</PackageId>
+		<Authors>Marvin Auf der Landwehr, Max Dreisbusch</Authors>
+		<Product>LED Videowand LiveScoring</Product>
+		<Description>Web API</Description>
+		<PackageProjectUrl>https://github.com/videowall/sportsdata-automated-scoring</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/videowall/sportsdata-automated-scoring</RepositoryUrl>
+		<RepositoryType>GIT</RepositoryType>
+		<AssemblyName>WBH.Livescoring.Frontend.API</AssemblyName>
+		<RootNamespace>WBH.Livescoring.Frontend.API</RootNamespace>
+		<Version>0.0.0.0</Version>
+		<AssemblyVersion>0.0.0.0</AssemblyVersion>
+		<AssemblyInformationalVersion>0.0.0.0</AssemblyInformationalVersion>
+		<FileVersion>0.0.0.0</FileVersion>
+	</PropertyGroup>
 
-    <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
-        <LangVersion>latest</LangVersion>
-    </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<LangVersion>latest</LangVersion>
+	</PropertyGroup>
 
-    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-        <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
-        <WarningsAsErrors />
-        <NoWarn>1591</NoWarn>
-        <DocumentationFile>bin\Debug\net6.0\WBH.Livescoring.Frontend.API.xml</DocumentationFile>
-    </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+		<CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+		<WarningsAsErrors />
+		<NoWarn>1591</NoWarn>
+		<DocumentationFile>bin\Debug\net6.0\WBH.Livescoring.Frontend.API.xml</DocumentationFile>
+	</PropertyGroup>
 
-    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-        <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
-        <WarningsAsErrors />
-        <NoWarn>1591</NoWarn>
-        <DocumentationFile>bin\Release\net6.0\WBH.Livescoring.Frontend.API.xml</DocumentationFile>
-    </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+		<CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+		<WarningsAsErrors />
+		<NoWarn>1591</NoWarn>
+		<DocumentationFile>bin\Release\net6.0\WBH.Livescoring.Frontend.API.xml</DocumentationFile>
+	</PropertyGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.2" />
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
-        <PackageReference Include="Serilog.AspNetCore" Version="5.0.0" />
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.2" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
+		<PackageReference Include="Serilog.AspNetCore" Version="5.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\IoC\IoC.csproj" />
+		<ProjectReference Include="..\Logic\Logic.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\IoC\IoC.csproj" />
-      <ProjectReference Include="..\Logic\Logic.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
+        <Compile Update="Module.HealthChecks.cs">
+            <DependentUpon>Module.cs</DependentUpon>
+        </Compile>
         <Compile Update="Module.Mvc.cs">
             <DependentUpon>Module.cs</DependentUpon>
         </Compile>
-    </ItemGroup>
+	</ItemGroup>
 
 </Project>

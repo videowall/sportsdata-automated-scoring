@@ -15,18 +15,12 @@ namespace WBH.Livescoring.Frontend.API
     {
         #region Constructors
 
-        public Startup(IHostEnvironment environment)
+        public Startup(IConfiguration configuration)
         {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(environment.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{environment.EnvironmentName}.json", optional: true)
-                .AddEnvironmentVariables();
-            Configuration = builder.Build();
+            Configuration = configuration;
 
             Log.Logger = new LoggerConfiguration()
-                .Enrich.FromLogContext()
-                .WriteTo.File(Configuration.GetValue<string>("LogPath"), rollingInterval: RollingInterval.Day)
+                .ReadFrom.Configuration(configuration)
                 .CreateLogger();
         }
 
@@ -34,7 +28,7 @@ namespace WBH.Livescoring.Frontend.API
 
         #region Properties
 
-        public IConfiguration Configuration { get; }
+        private IConfiguration Configuration { get; }
 
         #endregion
 
@@ -49,15 +43,15 @@ namespace WBH.Livescoring.Frontend.API
             applicationBuilder.UseForwardedHeaders();
             
             if (webHostEnvironment.IsDevelopment())
-                applicationBuilder.UseDeveloperExceptionPage();  //.UseSwagger();
+                applicationBuilder.UseDeveloperExceptionPage().UseSwagger();
             else
                 applicationBuilder.UseHsts();
 
             applicationBuilder.UseHttpsRedirection()
                 .UseRouting()
                 .UseCors()
-                .UseAuthentication()
-                .UseAuthorization()
+                //.UseAuthentication()
+                //.UseAuthorization()
                 //.UseSecurityHeader()
                 .UseEndpoints(endpoints =>
                 {
