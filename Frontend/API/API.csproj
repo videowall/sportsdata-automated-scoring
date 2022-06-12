@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
 	<PropertyGroup>
 		<PackageId>WBH.Livescoring.Frontend.API</PackageId>
@@ -39,10 +39,13 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.2" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.5" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
 		<PackageReference Include="Serilog.AspNetCore" Version="5.0.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1" />
+		<PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="7.0.3" />
+		<PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="6.3.1" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -55,6 +58,9 @@
             <DependentUpon>Module.cs</DependentUpon>
         </Compile>
         <Compile Update="Module.Mvc.cs">
+            <DependentUpon>Module.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Module.Swagger.cs">
             <DependentUpon>Module.cs</DependentUpon>
         </Compile>
 	</ItemGroup>

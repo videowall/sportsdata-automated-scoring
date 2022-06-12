@@ -43,7 +43,10 @@ namespace WBH.Livescoring.Frontend.API
             applicationBuilder.UseForwardedHeaders();
             
             if (webHostEnvironment.IsDevelopment())
-                applicationBuilder.UseDeveloperExceptionPage().UseSwagger();
+                applicationBuilder
+                    .UseDeveloperExceptionPage()
+                    .UseSwagger()
+                    .UseSwaggerUI();
             else
                 applicationBuilder.UseHsts();
 
@@ -52,7 +55,6 @@ namespace WBH.Livescoring.Frontend.API
                 .UseCors()
                 //.UseAuthentication()
                 //.UseAuthorization()
-                //.UseSecurityHeader()
                 .UseEndpoints(endpoints =>
                 {
                     endpoints.MapControllers();
