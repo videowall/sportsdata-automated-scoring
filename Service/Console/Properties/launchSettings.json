@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Console:Test": {
+      "commandName": "Project",
+      "commandLineArgs": "test"
+    }
+  }
+}
