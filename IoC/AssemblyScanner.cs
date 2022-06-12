@@ -15,23 +15,35 @@ namespace WBH.Livescoring.IoC
         /// Liest alle Assemblies aus dem aktuellen Thread aus und lädt fehlende nach
         /// </summary>
         /// <returns>Liste der Assemblies</returns>
-        public static IEnumerable<Assembly> LoadAssemblies()
+        public static IEnumerable<Assembly> GetAssemblies()
         {
             // Geladene Assemblies auslesen
-            var loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies().ToList();
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies().ToList();
 
             // Pfad für die geladenen Assemblies bestimmen
-            var loadedPaths = loadedAssemblies.Select(a => a.Location).ToArray();
+            var loadedPaths = assemblies.Select(a => a.Location).ToArray();
 
             // Fehlende Assemblies bestimmen
-            var referencedPaths = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "WBH.*.dll");
+            var referencedPaths = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "WBH.*.dll", SearchOption.AllDirectories);
             var toLoad = referencedPaths.Where(r => !loadedPaths.Contains(r, StringComparer.InvariantCultureIgnoreCase)).ToList();
 
             // Fehlende Assemblies laden
-            toLoad.ForEach(path => loadedAssemblies.Add(AppDomain.CurrentDomain.Load(AssemblyName.GetAssemblyName(path))));
+            toLoad.ForEach(path => assemblies.Add(GetDotNetAssembly(path)));
 
             // Assemblies ausgeben
-            return loadedAssemblies;
+            return assemblies;
+        }
+
+        private static Assembly GetDotNetAssembly(string assemblyFile)
+        {
+            try
+            {
+                return Assembly.LoadFrom(assemblyFile);
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         /// <summary>
@@ -45,7 +57,7 @@ namespace WBH.Livescoring.IoC
             var moduleType = typeof(IModule);
             
             // Modul Typen auslesen
-            var moduleTypes = LoadAssemblies()
+            var moduleTypes = GetAssemblies()
                 .SelectMany(a => a.GetTypes())
                 .Where(t => !t.IsAbstract && !t.IsInterface && moduleType.IsAssignableFrom(t))
                 .ToList();
