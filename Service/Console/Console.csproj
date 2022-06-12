@@ -48,6 +48,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\IoC.Primitives\IoC.Primitives.csproj" />
 		<ProjectReference Include="..\..\IoC\IoC.csproj" />
 	</ItemGroup>
 

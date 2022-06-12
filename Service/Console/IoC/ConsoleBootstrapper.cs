@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WBH.Livescoring.IoC;
+using WBH.Livescoring.Service.IoC;
 
 namespace WBH.Livescoring.Service.Console.IoC;
 

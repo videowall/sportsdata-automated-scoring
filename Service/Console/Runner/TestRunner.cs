@@ -1,5 +1,6 @@
 ﻿using CommandLine;
 using WBH.Livescoring.Service.Console.IoC;
+using WBH.Livescoring.Service.IoC;
 
 namespace WBH.Livescoring.Service.Console.Runner
 {
