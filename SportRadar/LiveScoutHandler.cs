@@ -10,16 +10,20 @@ namespace WBH.Livescoring.SportRadar;
 // ReSharper disable PossibleMultipleEnumeration
 internal sealed class LiveScoutHandler
 {
+
     #region Fields
 
+    private readonly IEnumerable<ILiveScoutEventHandler> _eventHandlers;
     private readonly ILogger _logger;
 
     #endregion
 
     #region Constructors
 
-    public LiveScoutHandler(IEnumerable<Func<object, ILogger>> loggingFactories)
+    public LiveScoutHandler(IEnumerable<Func<object, ILogger>> loggingFactories, IEnumerable<ILiveScoutEventHandler> eventHandlers)
     {
+        _eventHandlers = eventHandlers;
+
         if (loggingFactories.Any())
         { 
             _logger = loggingFactories
