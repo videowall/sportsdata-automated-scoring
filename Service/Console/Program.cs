@@ -16,15 +16,19 @@ internal class Program
     private static ConsoleBootstrapper _bootstrapper;
 
     #endregion
+
     static void Main(string[] args)
     {
         // Info ausgeben
         System.Console.WriteLine(HeadingInfo.Default.ToString());
         System.Console.WriteLine(CopyrightInfo.Default.ToString());
         System.Console.WriteLine();
-
+        
         // Bootstrapper instanziieren
         _bootstrapper = new ConsoleBootstrapper();
+
+        // Shutdown konfigurieren
+        AppDomain.CurrentDomain.ProcessExit += new EventHandler((object _, System.EventArgs __) => _bootstrapper.Stop());
 
         // Verb Typen auslesen
         var verbTypes = Assembly.GetEntryAssembly()?.GetTypes()
