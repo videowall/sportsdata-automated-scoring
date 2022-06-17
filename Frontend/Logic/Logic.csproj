@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <PackageId>WBH.Livescoring.Frontend.Logic</PackageId>
+        <Authors>Marvin Auf der Landwehr, Max Dreisbusch</Authors>
+        <Product>LED Videowand LiveScoring</Product>
+        <Description>Logik für Web API</Description>
+        <PackageProjectUrl>https://github.com/videowall/sportsdata-automated-scoring</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/videowall/sportsdata-automated-scoring</RepositoryUrl>
+        <RepositoryType>GIT</RepositoryType>
+        <AssemblyName>WBH.Livescoring.Frontend.Logic</AssemblyName>
+        <RootNamespace>WBH.Livescoring.Frontend.Logic</RootNamespace>
+        <Version>0.0.0.0</Version>
+        <AssemblyVersion>0.0.0.0</AssemblyVersion>
+        <AssemblyInformationalVersion>0.0.0.0</AssemblyInformationalVersion>
+        <FileVersion>0.0.0.0</FileVersion>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <LangVersion>latest</LangVersion>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+        <WarningsAsErrors />
+        <NoWarn />
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+        <WarningsAsErrors />
+        <NoWarn />
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\IoC\IoC.csproj" />
+    </ItemGroup>
+
+</Project>
