@@ -50,6 +50,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\IoC\IoC.csproj" />
+		<ProjectReference Include="..\..\SportRadar\SportRadar.csproj" />
 		<ProjectReference Include="..\Logic\Logic.csproj" />
     </ItemGroup>
 
@@ -64,5 +65,17 @@
             <DependentUpon>Module.cs</DependentUpon>
         </Compile>
 	</ItemGroup>
+
+    <ItemGroup>
+      <Content Update="app.config">
+        <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
+	<!-- START: This is a buildtime work around for https://github.com/dotnet/corefx/issues/22101 -->
+	<Target Name="CopyCustomContent" AfterTargets="AfterBuild">
+		<Copy SourceFiles="app.config" DestinationFiles="$(OutDir)\WBH.Livescoring.Frontend.API.dll.config" />
+	</Target>
+	<!-- END: This is a buildtime work around for https://github.com/dotnet/corefx/issues/22101 -->
 
 </Project>
