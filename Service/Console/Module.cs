@@ -3,8 +3,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using WBH.Livescoring.IoC;
-using WBH.Livescoring.Service.Console.IoC;
 using WBH.Livescoring.Service.IoC;
+using ILogger = Serilog.ILogger;
 
 namespace WBH.Livescoring.Service.Console
 {

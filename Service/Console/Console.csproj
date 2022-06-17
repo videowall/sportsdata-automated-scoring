@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<PackageId>WBH.Livescoring.Service.Console</PackageId>
@@ -48,6 +48,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\Serilog.IoC\Serilog.IoC.csproj" />
 		<ProjectReference Include="..\IoC.Primitives\IoC.Primitives.csproj" />
 		<ProjectReference Include="..\..\IoC\IoC.csproj" />
 		<ProjectReference Include="..\Logic\Logic.csproj" />
