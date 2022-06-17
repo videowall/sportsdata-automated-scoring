@@ -12,6 +12,7 @@ namespace WBH.Livescoring.Frontend.API
         public void RegisterServices(IServiceCollection container)
         {
             container.AddTransient<Func<object, ILogger>>(s => obj => s.GetService<ILoggerFactory>()?.CreateLogger(obj.GetType().Name)!);
+            RegisterBackgroundJobs(container);
             RegisterMvc(container);
             RegisterHealthChecks(container);
             RegisterSwagger(container);

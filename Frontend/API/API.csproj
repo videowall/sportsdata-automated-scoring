@@ -55,6 +55,9 @@
     </ItemGroup>
 
     <ItemGroup>
+        <Compile Update="Module.Background.cs">
+          <DependentUpon>Module.cs</DependentUpon>
+        </Compile>
         <Compile Update="Module.HealthChecks.cs">
             <DependentUpon>Module.cs</DependentUpon>
         </Compile>

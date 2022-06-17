@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Extensions.DependencyInjection;
+using Sportradar.LiveData.Sdk.FeedProviders.LiveScout.Interfaces;
 using Sportradar.LiveData.Sdk.Services;
 using WBH.Livescoring.IoC;
 
@@ -18,20 +19,17 @@ public sealed class Module : IModule
         container.AddSingleton(_ =>
         {
             // Instanz abrufen
-            var sdk = Sdk.Instance;
+            var sdk =  Sdk.Instance;
 
             // Instanz initialisieren
             sdk.Initialize();
 
-            // Instanz starten
-            sdk.Start();
-
-            // Instanz ausgeben
+            // Instanz registrieren
             return sdk;
         });
 
         // Bookmaker LiveScout registrieren
-        container.AddSingleton(s =>
+        container.AddSingleton<Func<ILiveScout>>(s => () =>
         {
             // Handler abrufen
             var handler = s.GetRequiredService<LiveScoutHandler>();
@@ -59,16 +57,12 @@ public sealed class Module : IModule
             liveScout.OnScoutInfo += handler.ScoutInfoHandler;
             liveScout.OnFeedError += handler.FeedErrorHandler;
 
-            // LiveScout Shutdown registrieren
-            AppDomain.CurrentDomain.ProcessExit += (_, _) =>
-            {
-                liveScout.Stop();
-                sdk.Stop();
-            };
-
             // LiveScout registrieren
             return liveScout;
         });
+
+        // LiveScout Service registrieren
+        container.AddTransient<ILiveScoutService, LiveScoutService>();
     }
 
     #endregion
