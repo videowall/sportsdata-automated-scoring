@@ -26,77 +26,81 @@ internal sealed class LiveScoutHandler
 
     public void OnOpened(object sender, ConnectionChangeEventArgs e)
     {
-        _logger.LogInformation("Connection Opened");
+        _logger.LogInformation("Connection Opened at {timestamp}", e.LocalTimestamp);
     }
 
     public void ClosedHandler(object sender, ConnectionChangeEventArgs e)
     {
-        throw new NotImplementedException();
+        _logger.LogInformation("Connection Closed at {timestamp}", e.LocalTimestamp);
     }
 
     public void LineupsHandler(object sender, LineupsEventArgs e)
     {
-        throw new NotImplementedException();
+        _logger.LogDebug("{name}: {e}", nameof(LineupsHandler), e);
     }
 
     public void MatchBookingReplyHandler(object sender, MatchBookingReplyEventArgs e)
     {
-        throw new NotImplementedException();
+        _logger.LogInformation("Match {MatchId} booked: {Message}", e.MatchBooking.MatchId, e.MatchBooking.Message);
     }
 
     public void MatchDataHandler(object sender, MatchDataEventArgs e)
     {
-        throw new NotImplementedException();
+        _logger.LogDebug("{name}: {e}", nameof(MatchDataHandler), e);
     }
 
     public void MatchListHandler(object sender, MatchListEventArgs e)
     {
-        throw new NotImplementedException();
+        _logger.LogDebug("{name}: {e}", nameof(MatchListHandler), e);
     }
 
     public void MatchListUpdateHandler(object sender, MatchListEventArgs e)
     {
-        throw new NotImplementedException();
+        _logger.LogDebug("{name}: {e}", nameof(MatchListUpdateHandler), e);
     }
 
     public void MatchStopHandler(object sender, MatchStopEventArgs e)
     {
-        throw new NotImplementedException();
+        _logger.LogInformation("Match {MatchId} stopped: {Reason}", e.MatchId, e.Reason);
     }
 
     public void MatchUpdateHandler(object sender, MatchUpdateEventArgs e)
     {
-        throw new NotImplementedException();
+        _logger.LogDebug("{name}: {e}", nameof(MatchUpdateHandler), e);
+        // TODO: Implementierung
     }
 
     public void MatchUpdateDeltaHandler(object sender, MatchUpdateEventArgs e)
     {
-        throw new NotImplementedException();
+        _logger.LogDebug("{name}: {e}", nameof(MatchUpdateDeltaHandler), e);
+        // TODO: Implementierung
     }
 
     public void MatchUpdateDeltaUpdateHandler(object sender, MatchUpdateEventArgs e)
     {
-        throw new NotImplementedException();
+        _logger.LogDebug("{name}: {e}", nameof(MatchUpdateDeltaUpdateHandler), e);
+        // TODO: Implementierung
     }
 
     public void MatchUpdateFullHandler(object sender, MatchUpdateEventArgs e)
     {
-        throw new NotImplementedException();
+        _logger.LogDebug("{name}: {e}", nameof(MatchUpdateFullHandler), e);
+        // TODO: Implementierung
     }
 
     public void OddsSuggestionHandler(object sender, OddsSuggestionEventArgs e)
     {
-        throw new NotImplementedException();
+        _logger.LogDebug("{name}: {e}", nameof(OddsSuggestionHandler), e);
     }
 
     public void ScoutInfoHandler(object sender, ScoutInfoEventArgs e)
     {
-        throw new NotImplementedException();
+        _logger.LogDebug("{name}: {e}", nameof(ScoutInfoHandler), e);
     }
 
     public void FeedErrorHandler(object sender, FeedErrorEventArgs e)
     {
-        throw new NotImplementedException();
+        _logger.LogError("Error: {ErrorMessage} {Cause} at {Timestamp}", e.ErrorMessage, e.Cause, e.LocalTimestamp);
     }
 
     #endregion
