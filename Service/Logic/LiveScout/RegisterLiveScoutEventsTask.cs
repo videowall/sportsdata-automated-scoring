@@ -32,6 +32,20 @@ internal sealed class RegisterLiveScoutEventsTask : IStartupTask
     {
         _logger.LogDebug("Register LiveScout Events");
         _liveScout.OnOpened += _handler.OnOpened;
+        _liveScout.OnClosed += _handler.ClosedHandler;
+        _liveScout.OnLineups += _handler.LineupsHandler;
+        _liveScout.OnMatchBookingReply += _handler.MatchBookingReplyHandler;
+        _liveScout.OnMatchData += _handler.MatchDataHandler;
+        _liveScout.OnMatchList += _handler.MatchListHandler;
+        _liveScout.OnMatchListUpdate += _handler.MatchListUpdateHandler;
+        _liveScout.OnMatchStop += _handler.MatchStopHandler;
+        _liveScout.OnMatchUpdate += _handler.MatchUpdateHandler;
+        _liveScout.OnMatchUpdateDelta += _handler.MatchUpdateDeltaHandler;
+        _liveScout.OnMatchUpdateDeltaUpdate += _handler.MatchUpdateDeltaUpdateHandler;
+        _liveScout.OnMatchUpdateFull += _handler.MatchUpdateFullHandler;
+        _liveScout.OnOddsSuggestion += _handler.OddsSuggestionHandler;
+        _liveScout.OnScoutInfo += _handler.ScoutInfoHandler;
+        _liveScout.OnFeedError += _handler.FeedErrorHandler;
     }
 
     #endregion
