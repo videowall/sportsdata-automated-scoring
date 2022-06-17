@@ -15,9 +15,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IoC.Primitives", "Service\I
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logic", "Service\Logic\Logic.csproj", "{2D723180-9A11-407E-879A-1CC01A0DE2C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "Frontend\API\API.csproj", "{FD69BAA1-0903-4640-83AB-80787ECE9246}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "Frontend\API\API.csproj", "{FD69BAA1-0903-4640-83AB-80787ECE9246}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logic", "Frontend\Logic\Logic.csproj", "{E94A6AFC-4B7B-433E-8F14-D42F8EB75252}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{89787936-78DC-49CF-80AB-A0E36FF3150B}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\main.yml = .github\workflows\main.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
