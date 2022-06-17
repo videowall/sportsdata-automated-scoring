@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<PackageId>WBH.Livescoring.Service.Console</PackageId>
@@ -37,11 +37,15 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="App.config" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="CommandLineParser" Version="2.8.0" />
-		<PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="5.0.0" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="5.0.0" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="6.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
 		<PackageReference Include="Serilog.Settings.Configuration" Version="3.3.0" />
 		<PackageReference Include="Serilog.Sinks.Console" Version="4.0.1" />
 		<PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
@@ -55,9 +59,18 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Content Include="app.config">
+		  <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+		</Content>
 		<Content Include="appsettings.json">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
 	</ItemGroup>
 
+	<!-- START: This is a buildtime work around for https://github.com/dotnet/corefx/issues/22101 -->
+	<Target Name="CopyCustomContent" AfterTargets="AfterBuild">
+		<Copy SourceFiles="app.config" DestinationFiles="$(OutDir)\WBH.Livescoring.Service.Console.dll.config" />
+		<Copy SourceFiles="app.config" DestinationFiles="$(OutDir)\WBH.Livescoring.Service.Console.exe.config" />
+	</Target>
+	<!-- END: This is a buildtime work around for https://github.com/dotnet/corefx/issues/22101 -->
 </Project>
