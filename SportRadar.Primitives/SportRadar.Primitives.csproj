@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<PackageId>WBH.Livescoring.SportRadar.Primitives</PackageId>
@@ -33,5 +33,13 @@
 		<WarningsAsErrors />
 		<NoWarn />
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Remove="Contracts\.gitkeep" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Contracts\" />
+	</ItemGroup>
 
 </Project>

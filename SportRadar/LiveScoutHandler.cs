@@ -20,16 +20,28 @@ internal sealed class LiveScoutHandler
 
     #region Constructors
 
-    public LiveScoutHandler(IEnumerable<Func<object, ILogger>> loggingFactories, IEnumerable<ILiveScoutEventHandler> eventHandlers)
+    public LiveScoutHandler(
+        IEnumerable<Func<object, ILogger>> loggingFactories,
+        IEnumerable<ILiveScoutEventHandler> eventHandlers,
+        IEnumerable<ILiveScoutOnOpenedEventHandler> onOpenedEventHandlers
+    )
     {
-        _eventHandlers = eventHandlers;
-
         if (loggingFactories.Any())
         { 
             _logger = loggingFactories
                 .Take(1)
                 .Select(f => f(this))
                 .FirstOrDefault();
+        }
+
+        if (eventHandlers?.Any() == true)
+        {
+            _eventHandlers = eventHandlers;
+        }
+        else
+        {
+            _eventHandlers = new List<ILiveScoutEventHandler>();
+            ((List<ILiveScoutEventHandler>) _eventHandlers).AddRange(onOpenedEventHandlers);
         }
     }
 
@@ -40,6 +52,12 @@ internal sealed class LiveScoutHandler
     public void OnOpened(object sender, ConnectionChangeEventArgs e)
     {
         _logger?.LogInformation("Connection Opened at {timestamp}", e.LocalTimestamp);
+
+        // Alle Handler informieren
+        foreach (var handler in _eventHandlers.OfType<ILiveScoutOnOpenedEventHandler>())
+        {
+            handler.OnOpened(e.LocalTimestamp);
+        }
     }
 
     public void ClosedHandler(object sender, ConnectionChangeEventArgs e)
