@@ -132,7 +132,7 @@ internal sealed class LiveScoutHandler
         var update = new MatchUpdateDelta
         {
             CourtName = mu.Court?.Name,
-            MatchId = mu.MatchHeader?.MatchId,
+            MatchId = mu.MatchHeader.MatchId,
             Serve = (Team?)(int?)mu.Serve,
             T1Name = mu.MatchHeader?.Team1?.Name?.International,
             T2Name = mu.MatchHeader?.Team2?.Name?.International,

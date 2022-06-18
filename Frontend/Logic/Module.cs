@@ -1,5 +1,8 @@
+using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
+using WBH.Livescoring.Frontend.Logic.SportRadar.Bases;
 using WBH.Livescoring.IoC;
+using WBH.Livescoring.SportRadar;
 
 namespace WBH.Livescoring.Frontend.Logic;
 
@@ -9,7 +12,8 @@ public sealed class Module : IModule
 
     public void RegisterServices(IServiceCollection container)
     {
-        // Folgt...
+        container.RegisterTransientAllTypesOf<Profile, Module>();
+        container.RegisterTransientAllTypesOf<ILiveScoutEventHandler, Module>();
     }
 
     #endregion
