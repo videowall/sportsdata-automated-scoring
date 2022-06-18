@@ -44,11 +44,7 @@ internal sealed class LiveScoutHandler
 
     public void OnOpened(object sender, ConnectionChangeEventArgs e)
     {
-        // Handler abrufen
-        var eventHandlers = GetEventHandlers<ILiveScoutOnOpenedEventHandler>();
-        
-        // Alle Handler informieren
-        foreach (var handler in eventHandlers) handler.Handle(e.LocalTimestamp);
+        _logger.LogInformation("We opened a LiveScout for you: {0}", e.LocalTimestamp);
     }
 
     public void ClosedHandler(object sender, ConnectionChangeEventArgs e)
@@ -111,20 +107,12 @@ internal sealed class LiveScoutHandler
             result.Add(pushItem);
         }
 
-        // Handler abrufen
-        var eventHandlers = GetEventHandlers<ILiveScoutMatchListHandler>();
-        
-        // Alle Handler informieren
-        foreach (var handler in eventHandlers) handler.Handle(result);
+        _logger.LogInformation("These are the available matches: {0}", result);
     }
 
     public void MatchStopHandler(object sender, MatchStopEventArgs e)
     {
-        // Handler abrufen
-        var eventHandlers = GetEventHandlers<ILiveScoutMatchStopHandler>();
-        
-        // Alle Handler informieren
-        foreach (var handler in eventHandlers) handler.Handle(e.MatchId, e.Reason);
+        _logger.LogInformation("The following match was stopped: {0}", e.MatchId);
     }
 
     public void MatchUpdateHandler(object sender, MatchUpdateEventArgs e)
