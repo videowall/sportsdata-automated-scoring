@@ -1,4 +1,6 @@
-﻿namespace WBH.Livescoring.Frontend.Entities;
+﻿using System.Collections.Generic;
+
+namespace WBH.Livescoring.Frontend.Entities;
 
 public class Match : IEntity<long>
 {
@@ -8,9 +10,25 @@ public class Match : IEntity<long>
 
     #endregion
 
+    #region NavigationProperties
+
+    public virtual ICollection<Score> Scores { get; set; }
+
+    #endregion
+
     #region Properties
 
-    public string Name { get; set; }
+    public string Court { get; set; }
+    public string TournamentName { get; set; }
+    public long TournamentId { get; set; }
+    
+    public string Team1Line1 { get; set; }
+    public string Team1Line2 { get; set; }
+    public string Team2Line1 { get; set; }
+    public string Team2Line2 { get; set; }
+    
+    public string MatchTime { get; set; }
+    public HomeAway Service { get; set; }
 
     #endregion
 }
