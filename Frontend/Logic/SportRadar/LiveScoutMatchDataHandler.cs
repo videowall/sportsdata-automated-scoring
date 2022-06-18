@@ -1,4 +1,3 @@
-using System.Linq;
 using AutoMapper;
 using WBH.Livescoring.Frontend.DataAccessLayer.Primitives;
 using WBH.Livescoring.Frontend.Logic.SportRadar.Bases;

@@ -49,6 +49,9 @@ internal sealed class LiveScoutHandler
 
     public void ClosedHandler(object sender, ConnectionChangeEventArgs e)
     {
+        // Loggen
+        _logger.LogInformation("LiveScout closed at {Time:dd.MM.yyyy hh:mm:ss}", e.LocalTimestamp);
+        
         // Handler abrufen
         var eventHandlers = GetEventHandlers<ILiveScoutClosedHandler>();
         
@@ -58,6 +61,9 @@ internal sealed class LiveScoutHandler
 
     public void MatchBookingReplyHandler(object sender, MatchBookingReplyEventArgs e)
     {
+        // Loggen
+        _logger.Log(e.MatchBooking.Result == Sportradar.LiveData.Sdk.FeedProviders.LiveScout.Enums.BookMatchResult.VALID ? LogLevel.Information : LogLevel.Error, "Match {MatchId}: {Message}", e.MatchBooking.MatchId, e.MatchBooking.Message);
+        
         var mb = e.MatchBooking;
         var matchBookingReply = new MatchBookingReply
         {
