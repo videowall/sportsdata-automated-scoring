@@ -43,18 +43,14 @@ public sealed class Module : IModule
             // Events registrieren
             liveScout.OnOpened += handler.OnOpened;
             liveScout.OnClosed += handler.ClosedHandler;
-            liveScout.OnLineups += handler.LineupsHandler;
             liveScout.OnMatchBookingReply += handler.MatchBookingReplyHandler;
             liveScout.OnMatchData += handler.MatchDataHandler;
             liveScout.OnMatchList += handler.MatchListHandler;
-            liveScout.OnMatchListUpdate += handler.MatchListUpdateHandler;
             liveScout.OnMatchStop += handler.MatchStopHandler;
             liveScout.OnMatchUpdate += handler.MatchUpdateHandler;
             liveScout.OnMatchUpdateDelta += handler.MatchUpdateDeltaHandler;
             liveScout.OnMatchUpdateDeltaUpdate += handler.MatchUpdateDeltaUpdateHandler;
             liveScout.OnMatchUpdateFull += handler.MatchUpdateFullHandler;
-            liveScout.OnOddsSuggestion += handler.OddsSuggestionHandler;
-            liveScout.OnScoutInfo += handler.ScoutInfoHandler;
             liveScout.OnFeedError += handler.FeedErrorHandler;
 
             // LiveScout registrieren

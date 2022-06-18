@@ -10,8 +10,6 @@ namespace WBH.Livescoring.SportRadar
 
         public double Team2 { get; set; }
 
-        public Score SubScore { get; set; }
-
         #endregion
     }
 }

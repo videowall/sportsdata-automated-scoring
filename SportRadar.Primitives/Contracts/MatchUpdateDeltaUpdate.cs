@@ -6,8 +6,9 @@ namespace WBH.Livescoring.SportRadar
     {
         #region Properties
 
+        public long MatchId { get; set; }
         public Team Serve { get; set; }
-        public List<Score> Scores { get; set; }
+        public IEnumerable<Score> Scores { get; set; }
 
         #endregion
     }
