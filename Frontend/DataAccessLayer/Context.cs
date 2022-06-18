@@ -2,7 +2,6 @@
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using WBH.Livescoring.Frontend.DataAccessLayer.Primitives;
-using WBH.Livescoring.Frontend.Entities;
 
 namespace WBH.Livescoring.Frontend.DataAccessLayer;
 
