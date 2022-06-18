@@ -1,5 +1,6 @@
 using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
+using WBH.Livescoring.Frontend.Logic.ScoreBoard;
 using WBH.Livescoring.IoC;
 using WBH.Livescoring.SportRadar;
 
@@ -13,6 +14,7 @@ public sealed class Module : IModule
     {
         container.RegisterTransientAllTypesOf<Profile, Module>();
         container.RegisterTransientAllTypesOf<ILiveScoutEventHandler, Module>();
+        container.AddTransient<IScoreBoardProvider, ScoreBoardProvider>();
     }
 
     #endregion
