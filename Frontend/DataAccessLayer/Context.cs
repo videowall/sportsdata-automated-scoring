@@ -2,6 +2,7 @@
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using WBH.Livescoring.Frontend.DataAccessLayer.Primitives;
+using WBH.Livescoring.Frontend.Entities;
 
 namespace WBH.Livescoring.Frontend.DataAccessLayer;
 
@@ -12,6 +13,27 @@ internal sealed class Context : DbContext, IContext
     IQueryable<TEntity> IContext.Query<TEntity>()
     {
         return Set<TEntity>().AsQueryable();
+    }
+
+    void IContext.Save<TEntity>(TEntity entity)
+    {
+        var entry = Entry(entity);
+        if (entry.State == EntityState.Detached)
+        {
+            Add(entity);
+        }
+        else
+        {
+            Update(entity);
+        }
+
+        SaveChanges();
+    }
+
+    void IContext.Delete<TEntity>(TEntity entity)
+    {
+        Remove(entity);
+        SaveChanges();
     }
 
     #endregion
