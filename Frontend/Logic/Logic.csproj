@@ -37,6 +37,12 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\IoC\IoC.csproj" />
+      <ProjectReference Include="..\..\SportRadar.Primitives\SportRadar.Primitives.csproj" />
+      <ProjectReference Include="..\DataAccessLayer.Primitives\DataAccessLayer.Primitives.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="11.0.1" />
     </ItemGroup>
 
 </Project>
