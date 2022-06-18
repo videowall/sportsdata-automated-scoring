@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -15,6 +17,10 @@ public static class IServiceCollectionExtensions
     /// <returns>Service Collection</returns>
     public static IServiceCollection InstallModules(this IServiceCollection collection)
     {
+        // Service Factory registrieren
+        collection.AddSingleton<Func<Type, object>>(s => s.GetService);
+        collection.AddSingleton<Func<Type, IEnumerable<object>>>(s => s.GetServices);
+        
         // Module laden
         AssemblyScanner.LoadModules(collection);
 

@@ -1,6 +1,5 @@
 using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
-using WBH.Livescoring.Frontend.Logic.SportRadar.Bases;
 using WBH.Livescoring.IoC;
 using WBH.Livescoring.SportRadar;
 

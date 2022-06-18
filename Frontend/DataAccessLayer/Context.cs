@@ -7,6 +7,12 @@ namespace WBH.Livescoring.Frontend.DataAccessLayer;
 
 internal sealed class Context : DbContext, IContext
 {
+    #region Constructors
+
+    public Context (DbContextOptions<Context> options) : base(options) {}
+
+    #endregion
+    
     #region IContext
 
     IQueryable<TEntity> IContext.Query<TEntity>()

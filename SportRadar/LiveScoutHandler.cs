@@ -12,50 +12,52 @@ internal sealed class LiveScoutHandler
 {
     #region Constructors
 
-    public LiveScoutHandler(
-        IEnumerable<Func<object, ILogger>> loggingFactories,
-        IEnumerable<ILiveScoutEventHandler> eventHandlers,
-        IEnumerable<ILiveScoutOnOpenedEventHandler> onOpenedEventHandlers
-    )
+    public LiveScoutHandler(IEnumerable<Func<object, ILogger>> loggingFactories, Func<Type, IEnumerable<object>> servicesFactory)
     {
+        _servicesFactory = servicesFactory;
         if (loggingFactories.Any())
             _logger = loggingFactories
                 .Take(1)
                 .Select(f => f(this))
                 .FirstOrDefault();
-
-        if (eventHandlers?.Any() == true)
-        {
-            _eventHandlers = eventHandlers;
-        }
-        else
-        {
-            _eventHandlers = new List<ILiveScoutEventHandler>();
-            ((List<ILiveScoutEventHandler>)_eventHandlers).AddRange(onOpenedEventHandlers);
-        }
     }
 
     #endregion
 
     #region Fields
 
-    private readonly IEnumerable<ILiveScoutEventHandler> _eventHandlers;
+    private readonly Func<Type, IEnumerable<object>> _servicesFactory;
     private readonly ILogger _logger;
 
     #endregion
 
     #region Methods
 
+    private IEnumerable<TEventHandler> GetEventHandlers<TEventHandler>()
+    {
+        return _servicesFactory(typeof(ILiveScoutEventHandler))
+            .Union(_servicesFactory(typeof(TEventHandler)))
+            .OfType<TEventHandler>()
+            .Distinct()
+            .ToList();
+    }
+
     public void OnOpened(object sender, ConnectionChangeEventArgs e)
     {
+        // Handler abrufen
+        var eventHandlers = GetEventHandlers<ILiveScoutOnOpenedEventHandler>();
+        
         // Alle Handler informieren
-        foreach (var handler in _eventHandlers.OfType<ILiveScoutOnOpenedEventHandler>())
-            handler.Handle(e.LocalTimestamp);
+        foreach (var handler in eventHandlers) handler.Handle(e.LocalTimestamp);
     }
 
     public void ClosedHandler(object sender, ConnectionChangeEventArgs e)
     {
-        foreach (var handler in _eventHandlers.OfType<ILiveScoutClosedHandler>()) handler.Handle(e.LocalTimestamp);
+        // Handler abrufen
+        var eventHandlers = GetEventHandlers<ILiveScoutClosedHandler>();
+        
+        // Alle Handler informieren
+        foreach (var handler in eventHandlers) handler.Handle(e.LocalTimestamp);
     }
 
     public void MatchBookingReplyHandler(object sender, MatchBookingReplyEventArgs e)
@@ -67,8 +69,12 @@ internal sealed class LiveScoutHandler
             Message = mb.Message,
             Result = (BookMatchResult)(int)mb.Result
         };
-        foreach (var handler in _eventHandlers.OfType<ILiveScoutMatchBookingReplyHandler>())
-            handler.Handle(matchBookingReply);
+        
+        // Handler abrufen
+        var eventHandlers = GetEventHandlers<ILiveScoutMatchBookingReplyHandler>();
+        
+        // Alle Handler informieren
+        foreach (var handler in eventHandlers) handler.Handle(matchBookingReply);
     }
 
     public void MatchDataHandler(object sender, MatchDataEventArgs e)
@@ -80,7 +86,11 @@ internal sealed class LiveScoutHandler
             MatchTime = md.MatchTime
         };
 
-        foreach (var handler in _eventHandlers.OfType<ILiveScoutMatchDataHandler>()) handler.Handle(data);
+        // Handler abrufen
+        var eventHandlers = GetEventHandlers<ILiveScoutMatchDataHandler>();
+        
+        // Alle Handler informieren
+        foreach (var handler in eventHandlers) handler.Handle(data);
     }
 
     public void MatchListHandler(object sender, MatchListEventArgs e)
@@ -101,13 +111,20 @@ internal sealed class LiveScoutHandler
             result.Add(pushItem);
         }
 
-        foreach (var handler in _eventHandlers.OfType<ILiveScoutMatchListHandler>()) handler.Handle(result);
+        // Handler abrufen
+        var eventHandlers = GetEventHandlers<ILiveScoutMatchListHandler>();
+        
+        // Alle Handler informieren
+        foreach (var handler in eventHandlers) handler.Handle(result);
     }
 
     public void MatchStopHandler(object sender, MatchStopEventArgs e)
     {
-        foreach (var handler in _eventHandlers.OfType<ILiveScoutMatchStopHandler>())
-            handler.Handle(e.MatchId, e.Reason);
+        // Handler abrufen
+        var eventHandlers = GetEventHandlers<ILiveScoutMatchStopHandler>();
+        
+        // Alle Handler informieren
+        foreach (var handler in eventHandlers) handler.Handle(e.MatchId, e.Reason);
     }
 
     public void MatchUpdateHandler(object sender, MatchUpdateEventArgs e)
@@ -123,7 +140,11 @@ internal sealed class LiveScoutHandler
             TournamentName = mu.Tournament.Name.International
         };
 
-        foreach (var handler in _eventHandlers.OfType<ILiveScoutMatchUpdateHandler>()) handler.Handle(update);
+        // Handler abrufen
+        var eventHandlers = GetEventHandlers<ILiveScoutMatchUpdateHandler>();
+        
+        // Alle Handler informieren
+        foreach (var handler in eventHandlers) handler.Handle(update);
     }
 
     public void MatchUpdateDeltaHandler(object sender, MatchUpdateEventArgs e)
@@ -139,7 +160,11 @@ internal sealed class LiveScoutHandler
             TournamentName = mu.Tournament?.Name?.International
         };
 
-        foreach (var handler in _eventHandlers.OfType<ILiveScoutMatchUpdateDeltaHandler>()) handler.Handle(update);
+        // Handler abrufen
+        var eventHandlers = GetEventHandlers<ILiveScoutMatchUpdateDeltaHandler>();
+        
+        // Alle Handler informieren
+        foreach (var handler in eventHandlers) handler.Handle(update);
     }
 
     public void MatchUpdateDeltaUpdateHandler(object sender, MatchUpdateEventArgs e)
@@ -157,8 +182,11 @@ internal sealed class LiveScoutHandler
             Serve = (Team)(int)mu.Serve
         };
 
-        foreach (var handler in _eventHandlers.OfType<ILiveScoutMatchUpdateDeltaUpdateHandler>())
-            handler.Handle(update);
+        // Handler abrufen
+        var eventHandlers = GetEventHandlers<ILiveScoutMatchUpdateDeltaUpdateHandler>();
+        
+        // Alle Handler informieren
+        foreach (var handler in eventHandlers) handler.Handle(update);
     }
 
     public void MatchUpdateFullHandler(object sender, MatchUpdateEventArgs e)
@@ -180,7 +208,11 @@ internal sealed class LiveScoutHandler
             T2Name = mu.MatchHeader.Team2.Name.International
         };
 
-        foreach (var handler in _eventHandlers.OfType<ILiveScoutMatchUpdateFullHandler>()) handler.Handle(update);
+        // Handler abrufen
+        var eventHandlers = GetEventHandlers<ILiveScoutMatchUpdateFullHandler>();
+        
+        // Alle Handler informieren
+        foreach (var handler in eventHandlers) handler.Handle(update);
     }
 
     public void FeedErrorHandler(object sender, FeedErrorEventArgs e)
