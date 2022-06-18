@@ -54,8 +54,7 @@ internal sealed class LiveScoutService : ILiveScoutService
 
     public void SubscribeMatch(long matchId)
     {
-        // TODO: LiveScout Booking
-        throw new NotImplementedException();
+        LiveScout.Subscribe(new []{matchId});
     }
 
     #endregion

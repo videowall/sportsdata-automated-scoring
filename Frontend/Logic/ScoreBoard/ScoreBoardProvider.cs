@@ -1,12 +1,22 @@
 ﻿using System;
+using WBH.Livescoring.SportRadar;
 
 namespace WBH.Livescoring.Frontend.Logic.ScoreBoard;
 
 internal sealed class ScoreBoardProvider : IScoreBoardProvider
 {
+    #region Fields
+
+    private readonly ILiveScoutService _liveScoutService;
+
+    #endregion
+
     #region Constructors
 
-    public ScoreBoardProvider() {}
+    public ScoreBoardProvider(ILiveScoutService liveScoutService)
+    {
+        _liveScoutService = liveScoutService;
+    }
 
     #endregion
     
@@ -19,7 +29,7 @@ internal sealed class ScoreBoardProvider : IScoreBoardProvider
 
     public void BookMatch(long matchId)
     {
-        throw new NotImplementedException();
+        _liveScoutService.SubscribeMatch(matchId);
     }
 
     #endregion
