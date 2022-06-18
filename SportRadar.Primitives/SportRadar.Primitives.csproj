@@ -38,8 +38,4 @@
 	  <None Remove="Contracts\.gitkeep" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Contracts\" />
-	</ItemGroup>
-
 </Project>

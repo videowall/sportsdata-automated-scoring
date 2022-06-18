@@ -4,6 +4,6 @@ namespace WBH.Livescoring.SportRadar
 {
     public interface ILiveScoutOnOpenedEventHandler : ILiveScoutEventHandler
     {
-        void OnOpened(DateTime timestamp);
+        void Handle(DateTime timestamp);
     }
 }
