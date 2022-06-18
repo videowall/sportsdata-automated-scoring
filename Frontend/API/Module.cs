@@ -11,8 +11,8 @@ public sealed partial class Module : IModule
 
     public void RegisterServices(IServiceCollection container)
     {
-        container.AddTransient<Func<object, ILogger>>(s =>
-            obj => s.GetService<ILoggerFactory>()?.CreateLogger(obj.GetType().Name)!);
+        container.AddTransient<Func<object, ILogger>>(s => obj => s.GetService<ILoggerFactory>()?.CreateLogger(obj.GetType().Name)!);
+        RegisterAutoMapper(container);
         RegisterBackgroundJobs(container);
         RegisterDataAccessLayer(container);
         RegisterMvc(container);

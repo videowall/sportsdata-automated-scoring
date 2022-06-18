@@ -1,3 +1,4 @@
+using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace WBH.Livescoring.IoC;
@@ -22,6 +23,28 @@ public static class IServiceCollectionExtensions
 
         // Alle Module abrufen
         foreach (var module in serviceProvider.GetServices<IModule>()) module.RegisterServices(collection);
+
+        // Collection ausgeben
+        return collection;
+    }
+
+    public static IServiceCollection RegisterTransientAllTypesOf<TType, TServiceNamespace>(this IServiceCollection collection)
+    {
+        // Typ und Assembly bestimmen
+        var type = typeof(TType);
+        var namespaceType = typeof(TServiceNamespace);
+        var assembly = namespaceType.Assembly;
+
+        // Alle Implementierungen aus der Assembly auslesen
+        var types = assembly.GetTypes()
+            .Where(t => t.Namespace != null && !t.IsAbstract && !t.IsInterface && type.IsAssignableFrom(t) && t.Namespace.StartsWith(namespaceType.Namespace ?? string.Empty))
+            .ToList();
+
+        // Typ registrieren
+        foreach (var implementationType in types)
+        {
+            collection.AddTransient(type, implementationType);
+        }
 
         // Collection ausgeben
         return collection;
