@@ -14,7 +14,6 @@
 		<AssemblyVersion>0.0.0.0</AssemblyVersion>
 		<AssemblyInformationalVersion>0.0.0.0</AssemblyInformationalVersion>
 		<FileVersion>0.0.0.0</FileVersion>
-		<Nullable>enable</Nullable>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -37,10 +36,6 @@
 
 	<ItemGroup>
 	  <None Remove="Contracts\.gitkeep" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Contracts\" />
 	</ItemGroup>
 
 </Project>
