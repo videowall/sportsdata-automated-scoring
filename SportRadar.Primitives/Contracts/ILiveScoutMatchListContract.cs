@@ -4,16 +4,16 @@ namespace WBH.Livescoring.SportRadar
 {
     public interface ILiveScoutMatchListContract
     {
-        List<ILiveScoutMatchListItem> list { get; set; }
+        List<ILiveScoutMatchListItem> List { get; set; }
     }
 
     public interface ILiveScoutMatchListItem
     {
-        string t1Name { get; set; }
-        string t2Name { get; set; }
-        long matchId { get; set; } 
-        string courtName{ get; set; }
-        string tournamentName { get; set; }
-        ScoutMatchStatus matchStatus { get; set; }
+        string T1Name { get; set; }
+        string T2Name { get; set; }
+        long MatchId { get; set; } 
+        string CourtName{ get; set; }
+        string TournamentName { get; set; }
+        ScoutMatchStatus MatchStatus { get; set; }
     }
 }

@@ -5,7 +5,7 @@ namespace WBH.Livescoring.SportRadar
 {
     public interface ILiveScoutMatchUpdateDeltaUpdateContract
     {
-         Team serve { get; set; }
-         List<Score> scores { get; set; }
+         Team Serve { get; set; }
+         List<Score> Scores { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 namespace WBH.Livescoring.SportRadar.Types
 {
-    public class Score
+    public interface Score
     {
         public string Type { get;  }
 
