@@ -41,6 +41,7 @@
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.5" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.6" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
 		<PackageReference Include="Serilog.AspNetCore" Version="5.0.0" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1" />
@@ -51,11 +52,15 @@
 	<ItemGroup>
 		<ProjectReference Include="..\..\IoC\IoC.csproj" />
 		<ProjectReference Include="..\..\SportRadar\SportRadar.csproj" />
+		<ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj" />
 		<ProjectReference Include="..\Logic\Logic.csproj" />
     </ItemGroup>
 
     <ItemGroup>
         <Compile Update="Module.Background.cs">
+          <DependentUpon>Module.cs</DependentUpon>
+        </Compile>
+        <Compile Update="Module.DataAccessLayer.cs">
           <DependentUpon>Module.cs</DependentUpon>
         </Compile>
         <Compile Update="Module.HealthChecks.cs">
