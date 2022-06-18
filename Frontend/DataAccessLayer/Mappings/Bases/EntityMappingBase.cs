@@ -6,13 +6,6 @@ namespace WBH.Livescoring.Frontend.DataAccessLayer.Mappings;
 
 public abstract class EntityMappingBase<TEntity>: IEntityTypeConfiguration<TEntity> where TEntity : class, IEntity
 {
-    #region Properties
-
-    protected virtual string TableName => typeof(TEntity).Name;
-
-
-    #endregion
-
     #region IEntityTypeConfiguration
 
     void IEntityTypeConfiguration<TEntity>.Configure(EntityTypeBuilder<TEntity> builder)
@@ -44,8 +37,6 @@ public abstract class EntityMappingBase<TEntity>: IEntityTypeConfiguration<TEnti
 
     private void AddDefaultMappings(EntityTypeBuilder<TEntity> entity)
     {
-        entity.ToTable(TableName);
-
         AddKeyMapping(entity);
 
         AddPropertyMappings(entity);
