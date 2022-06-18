@@ -24,24 +24,24 @@
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
         <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
-        <WarningsAsErrors />
-        <NoWarn />
+        <WarningsAsErrors/>
+        <NoWarn/>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
         <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
-        <WarningsAsErrors />
-        <NoWarn />
+        <WarningsAsErrors/>
+        <NoWarn/>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\DataAccessLayer.Primitives\DataAccessLayer.Primitives.csproj" />
-      <ProjectReference Include="..\Entities\Entities.csproj" />
+        <ProjectReference Include="..\DataAccessLayer.Primitives\DataAccessLayer.Primitives.csproj"/>
+        <ProjectReference Include="..\Entities\Entities.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.6" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.6"/>
     </ItemGroup>
 
 </Project>

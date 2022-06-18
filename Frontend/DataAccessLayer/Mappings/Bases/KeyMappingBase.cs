@@ -10,7 +10,7 @@ public abstract class KeyMappingBase<TEntity, TKey> : EntityMappingBase<TEntity>
     protected override void AddKeyMapping(EntityTypeBuilder<TEntity> entity)
     {
         entity.HasKey(x => x.Id);
-            
+
         entity.Property(x => x.Id)
             .IsRequired()
             .ValueGeneratedOnAdd();

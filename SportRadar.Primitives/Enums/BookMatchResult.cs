@@ -4,6 +4,6 @@ namespace WBH.Livescoring.SportRadar
     {
         Undefined,
         Valid,
-        Invalid,
+        Invalid
     }
 }

@@ -4,15 +4,15 @@ namespace WBH.Livescoring.Frontend.Entities;
 
 public class Match : IEntity<long>
 {
-    #region IEntity
-
-    public long Id { get; set; }
-
-    #endregion
-
     #region NavigationProperties
 
     public virtual ICollection<Score> Scores { get; set; }
+
+    #endregion
+
+    #region IEntity
+
+    public long Id { get; set; }
 
     #endregion
 
@@ -21,12 +21,12 @@ public class Match : IEntity<long>
     public string Court { get; set; }
     public string TournamentName { get; set; }
     public long TournamentId { get; set; }
-    
+
     public string Team1Line1 { get; set; }
     public string Team1Line2 { get; set; }
     public string Team2Line1 { get; set; }
     public string Team2Line2 { get; set; }
-    
+
     public string MatchTime { get; set; }
     public HomeAway Service { get; set; }
 

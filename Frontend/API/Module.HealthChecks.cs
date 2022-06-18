@@ -1,16 +1,15 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace WBH.Livescoring.Frontend.API
+namespace WBH.Livescoring.Frontend.API;
+
+public sealed partial class Module
 {
-    public sealed partial class Module
+    #region Methods
+
+    private static void RegisterHealthChecks(IServiceCollection container)
     {
-        #region Methods
-
-        private static void RegisterHealthChecks(IServiceCollection container)
-        {
-            container.AddHealthChecks();
-        }
-
-        #endregion
+        container.AddHealthChecks();
     }
+
+    #endregion
 }

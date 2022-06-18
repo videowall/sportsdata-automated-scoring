@@ -126,6 +126,6 @@ namespace WBH.Livescoring.SportRadar
         FourthGame,
         FifthGame,
         AwaitingGoldenSet,
-        AfterGoldenSet,
+        AfterGoldenSet
     }
 }

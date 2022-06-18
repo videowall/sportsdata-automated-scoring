@@ -4,15 +4,15 @@ using WBH.Livescoring.Frontend.Entities;
 
 namespace WBH.Livescoring.Frontend.DataAccessLayer.Mappings;
 
-public abstract class EntityMappingBase<TEntity>: IEntityTypeConfiguration<TEntity> where TEntity : class, IEntity
+public abstract class EntityMappingBase<TEntity> : IEntityTypeConfiguration<TEntity> where TEntity : class, IEntity
 {
     #region IEntityTypeConfiguration
 
     void IEntityTypeConfiguration<TEntity>.Configure(EntityTypeBuilder<TEntity> builder)
     {
         AddDefaultMappings(builder);
-    } 
-            
+    }
+
     #endregion
 
     #region Methods
@@ -30,7 +30,7 @@ public abstract class EntityMappingBase<TEntity>: IEntityTypeConfiguration<TEnti
     protected virtual void AddKeyMapping(EntityTypeBuilder<TEntity> entity)
     {
     }
-            
+
     protected virtual void AddQueryFilters(EntityTypeBuilder<TEntity> entity)
     {
     }

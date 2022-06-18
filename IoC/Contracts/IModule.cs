@@ -1,9 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
 
-namespace WBH.Livescoring.IoC
+namespace WBH.Livescoring.IoC;
+
+public interface IModule
 {
-    public interface IModule
-    {
-        void RegisterServices(IServiceCollection container);
-    }
+    void RegisterServices(IServiceCollection container);
 }

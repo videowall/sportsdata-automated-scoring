@@ -19,7 +19,7 @@ public sealed class Module : IModule
         container.AddSingleton(_ =>
         {
             // Instanz abrufen
-            var sdk =  Sdk.Instance;
+            var sdk = Sdk.Instance;
 
             // Instanz initialisieren
             sdk.Initialize();

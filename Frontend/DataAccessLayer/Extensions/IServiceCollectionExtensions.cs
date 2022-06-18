@@ -15,7 +15,10 @@ public static class IServiceCollectionExtensions
         Action<DbContextOptionsBuilder> optionsAction = null,
         ServiceLifetime contextLifetime = ServiceLifetime.Scoped,
         ServiceLifetime optionsLifetime = ServiceLifetime.Scoped
-        ) => container.AddDbContext<IContext, Context>(optionsAction, contextLifetime, optionsLifetime);
+    )
+    {
+        return container.AddDbContext<IContext, Context>(optionsAction, contextLifetime, optionsLifetime);
+    }
 
     #endregion
 }

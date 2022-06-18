@@ -5,6 +5,6 @@ namespace WBH.Livescoring.SportRadar
         Undefined,
         Away,
         Home,
-        None,
+        None
     }
 }

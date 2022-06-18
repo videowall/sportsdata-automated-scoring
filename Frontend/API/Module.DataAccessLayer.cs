@@ -2,17 +2,16 @@
 using Microsoft.Extensions.DependencyInjection;
 using WBH.Livescoring.Frontend.DataAccessLayer;
 
-namespace WBH.Livescoring.Frontend.API
+namespace WBH.Livescoring.Frontend.API;
+
+public sealed partial class Module
 {
-    public sealed partial class Module
+    #region Methods
+
+    private static void RegisterDataAccessLayer(IServiceCollection container)
     {
-        #region Methods
-
-        private static void RegisterDataAccessLayer(IServiceCollection container)
-        {
-            container.AddDbContext(options => options.UseInMemoryDatabase("SportRadar"));
-        }
-
-        #endregion
+        container.AddDbContext(options => options.UseInMemoryDatabase("SportRadar"));
     }
+
+    #endregion
 }

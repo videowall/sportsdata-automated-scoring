@@ -24,19 +24,19 @@
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
         <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
-        <WarningsAsErrors />
-        <NoWarn />
+        <WarningsAsErrors/>
+        <NoWarn/>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
         <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
-        <WarningsAsErrors />
-        <NoWarn />
+        <WarningsAsErrors/>
+        <NoWarn/>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Entities\Entities.csproj" />
+        <ProjectReference Include="..\Entities\Entities.csproj"/>
     </ItemGroup>
 
 </Project>
