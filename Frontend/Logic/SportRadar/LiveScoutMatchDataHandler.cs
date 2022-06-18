@@ -20,7 +20,7 @@ internal sealed class LiveScoutMatchDataHandler:LiveScoutHandlerBase, ILiveScout
     {
         if (data == null) return;
         
-        var entity = GetMatch(data.MatchId);
+        var entity = GetOrCreateMatch(data.MatchId);
         _mapper.Map(data, entity);
         _context.Save(entity);
     }

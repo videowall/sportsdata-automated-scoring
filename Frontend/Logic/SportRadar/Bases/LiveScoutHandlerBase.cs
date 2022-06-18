@@ -13,5 +13,5 @@ internal abstract class LiveScoutHandlerBase: ILiveScoutEventHandler
           _context = context;
      }
      
-     protected Entities.Match GetMatch(long matchId) => _context.Query<Entities.Match>().FirstOrDefault(e => e.Id == matchId) ?? new Entities.Match{Id=matchId};
+     protected Entities.Match GetOrCreateMatch(long matchId) => _context.Query<Entities.Match>().FirstOrDefault(e => e.Id == matchId) ?? new Entities.Match{Id=matchId};
 }
