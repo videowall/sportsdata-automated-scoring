@@ -11,21 +11,15 @@ internal sealed class LiveScoutService : ILiveScoutService
     public LiveScoutService(Sdk sdk, Func<ILiveScout> liveScoutFactory)
     {
         _sdk = sdk;
-        _liveScoutFactory = liveScoutFactory;
+        _liveScout = new Lazy<ILiveScout>(liveScoutFactory);
     }
-
-    #endregion
-
-    #region Properties
-
-    private ILiveScout LiveScout { get; set; }
 
     #endregion
 
     #region Fields
 
     private readonly Sdk _sdk;
-    private readonly Func<ILiveScout> _liveScoutFactory;
+    private readonly Lazy<ILiveScout> _liveScout;
 
     #endregion
 
@@ -36,17 +30,14 @@ internal sealed class LiveScoutService : ILiveScoutService
         // Instanz starten
         _sdk.Start();
 
-        // LiveScout abrufen
-        LiveScout = _liveScoutFactory();
-
         // LiveScout starten
-        LiveScout.Start();
+        _liveScout.Value.Start();
     }
 
     public void Stop()
     {
         // LiveScout stoppen
-        LiveScout.Stop();
+        _liveScout.Value.Stop();
 
         // Instanz Stoppen
         _sdk.Stop();
@@ -54,7 +45,7 @@ internal sealed class LiveScoutService : ILiveScoutService
 
     public void SubscribeMatch(long matchId)
     {
-        LiveScout.Subscribe(new []{matchId});
+        _liveScout.Value.Subscribe(new []{matchId});
     }
 
     #endregion
