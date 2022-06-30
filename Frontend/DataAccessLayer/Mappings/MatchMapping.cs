@@ -12,14 +12,14 @@ internal sealed class MatchMapping : KeyMappingBase<Match, long>
     {
         entity.Property(e => e.Court)
             .HasMaxLength(100)
-            .IsRequired();
+            .IsRequired(false);
 
         entity.Property(e => e.TournamentId)
-            .IsRequired();
+            .IsRequired(false);
 
         entity.Property(e => e.TournamentName)
             .HasMaxLength(100)
-            .IsRequired();
+            .IsRequired(false);
 
         entity.Property(e => e.Service)
             .HasConversion<EnumToStringConverter<HomeAway>>()
@@ -27,23 +27,23 @@ internal sealed class MatchMapping : KeyMappingBase<Match, long>
 
         entity.Property(e => e.MatchTime)
             .HasMaxLength(20)
-            .IsRequired();
+            .IsRequired(false);
 
         entity.Property(e => e.Team1Line1)
             .HasMaxLength(100)
-            .IsRequired();
+            .IsRequired(false);
 
         entity.Property(e => e.Team1Line2)
             .HasMaxLength(100)
-            .IsRequired();
+            .IsRequired(false);
 
         entity.Property(e => e.Team2Line1)
             .HasMaxLength(100)
-            .IsRequired();
+            .IsRequired(false);
 
         entity.Property(e => e.Team2Line2)
             .HasMaxLength(100)
-            .IsRequired();
+            .IsRequired(false);
     }
 
     #endregion

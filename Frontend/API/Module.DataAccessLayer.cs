@@ -10,7 +10,7 @@ public sealed partial class Module
 
     private static void RegisterDataAccessLayer(IServiceCollection container)
     {
-        container.AddDbContext(options => options.UseInMemoryDatabase("SportRadar"));
+        container.AddDbContext(options => options.UseInMemoryDatabase("SportRadar"), ServiceLifetime.Transient, ServiceLifetime.Transient);
     }
 
     #endregion

@@ -21,7 +21,7 @@ public class Match : IEntity<long>
 
     public string Court { get; set; }
     public string TournamentName { get; set; }
-    public long TournamentId { get; set; }
+    public long? TournamentId { get; set; }
 
     public string Team1Line1 { get; set; }
     public string Team1Line2 { get; set; }

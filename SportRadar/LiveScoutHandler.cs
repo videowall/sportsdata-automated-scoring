@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Sportradar.LiveData.Sdk.FeedProviders.Common.Events;
 using Sportradar.LiveData.Sdk.FeedProviders.LiveScout.Events;
@@ -12,9 +13,9 @@ internal sealed class LiveScoutHandler
 {
     #region Constructors
 
-    public LiveScoutHandler(IEnumerable<Func<object, ILogger>> loggingFactories, Func<Type, IEnumerable<object>> servicesFactory)
+    public LiveScoutHandler(IEnumerable<Func<object, ILogger>> loggingFactories, IServiceProvider serviceProvider)
     {
-        _servicesFactory = servicesFactory;
+        _serviceProvider = serviceProvider;
         if (loggingFactories.Any())
             _logger = loggingFactories
                 .Take(1)
@@ -26,17 +27,17 @@ internal sealed class LiveScoutHandler
 
     #region Fields
 
-    private readonly Func<Type, IEnumerable<object>> _servicesFactory;
+    private readonly IServiceProvider _serviceProvider;
     private readonly ILogger _logger;
 
     #endregion
 
     #region Methods
 
-    private IEnumerable<TEventHandler> GetEventHandlers<TEventHandler>()
+    private IEnumerable<TEventHandler> GetEventHandlers<TEventHandler>() where TEventHandler: ILiveScoutEventHandler
     {
-        return _servicesFactory(typeof(ILiveScoutEventHandler))
-            .Union(_servicesFactory(typeof(TEventHandler)))
+        return _serviceProvider.GetServices<ILiveScoutEventHandler>()
+            .Union(_serviceProvider.GetServices<TEventHandler>().OfType<ILiveScoutEventHandler>())
             .OfType<TEventHandler>()
             .Distinct()
             .ToList();
@@ -126,12 +127,12 @@ internal sealed class LiveScoutHandler
         var mu = e.MatchUpdate;
         var update = new MatchUpdate
         {
-            CourtName = mu.Court.Name,
+            CourtName = mu.Court?.Name,
             MatchId = mu.MatchHeader.MatchId,
             Serve = (Team)(int)mu.Serve,
-            T1Name = mu.MatchHeader.Team1.Name.International,
-            T2Name = mu.MatchHeader.Team2.Name.International,
-            TournamentName = mu.Tournament.Name.International
+            T1Name = mu.MatchHeader?.Team1?.Name?.International,
+            T2Name = mu.MatchHeader?.Team2?.Name?.International,
+            TournamentName = mu.Tournament?.Name?.International
         };
 
         // Handler abrufen

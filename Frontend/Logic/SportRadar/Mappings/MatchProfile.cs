@@ -47,6 +47,8 @@ internal sealed class MatchProfile: Profile
 
     private string GetPlayerName(string name, long index)
     {
+        if (name == null) return null;
+        
         var splittedName = name.Split(",");
         return splittedName.Length >= 2 ? splittedName[index] : index == 0 ? name : string.Empty;
     }
