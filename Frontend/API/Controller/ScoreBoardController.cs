@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using WBH.Livescoring.Frontend.Logic.ScoreBoard;
 
 namespace WBH.Livescoring.Frontend.API.Controller;
@@ -28,14 +31,40 @@ public class ScoreBoardController : ControllerBase
     #region Endpoints
 
     /// <summary>
-    ///     Test Funktion
+    /// Match buchen
     /// </summary>
-    /// <remarks>Testet die API</remarks>
-    /// <returns>Test</returns>
-    [HttpGet]
-    public IActionResult Test()
+    /// <remarks>Bucht ein Match bei SportRadar</remarks>
+    /// <returns></returns>
+    [HttpPost]
+    public IActionResult Book([FromBody, Required] long matchId)
     {
-        return Ok("Test");
+        try
+        {
+            _provider.BookMatch(matchId);
+        }
+        catch (Exception e)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, e);
+        }
+        return Ok();
+    }
+
+    /// <summary>
+    /// Spielstand abrufen
+    /// </summary>
+    /// <remarks>Ruft den aktuellen Spielstand ab.</remarks>
+    /// <returns>Spielstand</returns>
+    [HttpGet, Route("{matchId}")]
+    public IActionResult Get([FromRoute, Required] long matchId)
+    {
+        try
+        {
+            return Ok(_provider.GetScoreBoardInfo(matchId));
+        }
+        catch (Exception e)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, e);
+        }
     }
 
     #endregion
