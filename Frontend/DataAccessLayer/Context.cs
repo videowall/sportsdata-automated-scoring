@@ -23,7 +23,7 @@ internal sealed class Context : DbContext, IContext
     void IContext.Save<TEntity>(TEntity entity)
     {
         var entry = Entry(entity);
-        if (entry.State == EntityState.Detached)
+        if (entry.GetDatabaseValues() == null || entry.State == EntityState.Detached)
         {
             Add(entity);
         }
