@@ -37,6 +37,18 @@ internal sealed class Context : DbContext, IContext
         SaveChanges();
     }
 
+    void IContext.Add<TEntity>(TEntity entity)
+    {
+        Add(entity);
+        SaveChanges();
+    }
+
+    void IContext.Update<TEntity>(TEntity entity)
+    {
+        Update(entity);
+        SaveChanges();
+    }
+
     void IContext.Delete<TEntity>(TEntity entity)
     {
         Remove(entity);
