@@ -1,7 +1,9 @@
+using System.Threading.Tasks;
+
 namespace WBH.Livescoring.SportRadar
 {
     public interface ILiveScoutMatchUpdateDeltaUpdateHandler : ILiveScoutEventHandler
     {
-        void Handle(MatchUpdateDeltaUpdate data);
+        Task Handle(MatchUpdateDeltaUpdate data);
     }
 }

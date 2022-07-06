@@ -1,5 +1,5 @@
 ﻿using System;
-using AutoMapper;
+using System.Threading.Tasks;
 using WBH.Livescoring.Frontend.DataAccessLayer.Primitives;
 using WBH.Livescoring.Frontend.Logic.SportRadar.Bases;
 using WBH.Livescoring.SportRadar;
@@ -10,16 +10,14 @@ internal sealed class LiveScoutMatchBookingReplyHandler : LiveScoutHandlerBase, 
 {
     #region Fields
 
-    private readonly IMapper _mapper;
     private readonly IContext _context;
 
     #endregion
 
     #region Constructors
 
-    public LiveScoutMatchBookingReplyHandler(IMapper mapper, IContext context): base(context)
+    public LiveScoutMatchBookingReplyHandler(IContext context): base(context)
     {
-        _mapper = mapper;
         _context = context;
     }
 
@@ -27,20 +25,20 @@ internal sealed class LiveScoutMatchBookingReplyHandler : LiveScoutHandlerBase, 
 
     #region ILiveScoutMatchBookingReplyHandler
 
-    public void Handle(MatchBookingReply reply)
+    public async Task Handle(MatchBookingReply reply)
     {
         if (reply == null) return;
 
         var status = new Entities.Status {Happened = DateTime.UtcNow, MatchId = reply.MatchId, Message = reply.Message};
         if (reply.Result == BookMatchResult.Valid && reply.MatchId.HasValue)
         {
-            var entity = GetOrCreateMatch(reply.MatchId.Value);
+            var entity = await GetOrCreateMatchAsync(reply.MatchId.Value);
             entity.Status.Add(status);
-            _context.Save(entity);
+            await _context.SaveAsync(entity);
         }
         else if (reply.MatchId.HasValue == false)
         {
-            _context.Save(status);
+            await _context.SaveAsync(status);
         }
     }
 

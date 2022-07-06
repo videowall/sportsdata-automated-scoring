@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using AutoMapper;
 using WBH.Livescoring.Frontend.DataAccessLayer.Primitives;
 using WBH.Livescoring.Frontend.Logic.SportRadar.Bases;
@@ -16,12 +17,12 @@ internal sealed class LiveScoutMatchUpdateHandler: LiveScoutHandlerBase, ILiveSc
         _context = context;
     }
     
-    public void Handle(MatchUpdate data)
+    public async Task Handle(MatchUpdate data)
     {
         if (data == null) return;
         
-        var entity = GetOrCreateMatch(data.MatchId);
+        var entity = await GetOrCreateMatchAsync(data.MatchId);
         _mapper.Map(data, entity);
-        _context.Save(entity);
+        await _context.SaveAsync(entity);
     }
 }

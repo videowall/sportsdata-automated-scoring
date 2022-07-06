@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using WBH.Livescoring.Frontend.DataAccessLayer.Primitives;
 
@@ -37,22 +38,27 @@ internal sealed class Context : DbContext, IContext
         SaveChanges();
     }
 
-    void IContext.Add<TEntity>(TEntity entity)
+    async Task IContext.SaveAsync<TEntity>(TEntity entity)
     {
-        Add(entity);
-        SaveChanges();
+        if (entity == null) return;
+        
+        var entry = Entry(entity);
+        if (await entry.GetDatabaseValuesAsync() == null || entry.State == EntityState.Detached)
+        {
+            await AddAsync(entity);
+        }
+        else
+        {
+            Update(entity);
+        }
+
+        await SaveChangesAsync();
     }
 
-    void IContext.Update<TEntity>(TEntity entity)
-    {
-        Update(entity);
-        SaveChanges();
-    }
-
-    void IContext.Delete<TEntity>(TEntity entity)
+    async Task IContext.Delete<TEntity>(TEntity entity)
     {
         Remove(entity);
-        SaveChanges();
+        await SaveChangesAsync();
     }
 
     #endregion

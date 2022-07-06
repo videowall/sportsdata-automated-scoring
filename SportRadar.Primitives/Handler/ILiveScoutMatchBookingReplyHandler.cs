@@ -1,7 +1,9 @@
+using System.Threading.Tasks;
+
 namespace WBH.Livescoring.SportRadar
 {
     public interface ILiveScoutMatchBookingReplyHandler : ILiveScoutEventHandler
     {
-        void Handle(MatchBookingReply reply);
+        Task Handle(MatchBookingReply reply);
     }
 }

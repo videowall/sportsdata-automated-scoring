@@ -1,9 +1,10 @@
 using System;
+using System.Threading.Tasks;
 
 namespace WBH.Livescoring.SportRadar
 {
     public interface ILiveScoutClosedHandler : ILiveScoutEventHandler
     {
-        void Handle(DateTime timestamp);
+        Task Handle(DateTime timestamp);
     }
 }

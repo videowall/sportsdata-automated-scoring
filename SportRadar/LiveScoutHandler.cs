@@ -45,7 +45,7 @@ internal sealed class LiveScoutHandler
 
     public void OnOpened(object sender, ConnectionChangeEventArgs e)
     {
-        _logger.LogInformation("We opened a LiveScout for you: {0}", e.LocalTimestamp);
+        _logger.LogInformation("We opened a LiveScout for you: {LocalTimestamp}", e.LocalTimestamp);
     }
 
     public void ClosedHandler(object sender, ConnectionChangeEventArgs e)
@@ -57,7 +57,7 @@ internal sealed class LiveScoutHandler
         var eventHandlers = GetEventHandlers<ILiveScoutClosedHandler>();
         
         // Alle Handler informieren
-        foreach (var handler in eventHandlers) handler.Handle(e.LocalTimestamp);
+        foreach (var handler in eventHandlers) handler.Handle(e.LocalTimestamp).GetAwaiter().GetResult();
     }
 
     public void MatchBookingReplyHandler(object sender, MatchBookingReplyEventArgs e)
@@ -77,7 +77,7 @@ internal sealed class LiveScoutHandler
         var eventHandlers = GetEventHandlers<ILiveScoutMatchBookingReplyHandler>();
         
         // Alle Handler informieren
-        foreach (var handler in eventHandlers) handler.Handle(matchBookingReply);
+        foreach (var handler in eventHandlers) handler.Handle(matchBookingReply).GetAwaiter().GetResult();
     }
 
     public void MatchDataHandler(object sender, MatchDataEventArgs e)
@@ -93,7 +93,7 @@ internal sealed class LiveScoutHandler
         var eventHandlers = GetEventHandlers<ILiveScoutMatchDataHandler>();
         
         // Alle Handler informieren
-        foreach (var handler in eventHandlers) handler.Handle(data);
+        foreach (var handler in eventHandlers) handler.Handle(data).GetAwaiter().GetResult();
     }
 
     public void MatchListHandler(object sender, MatchListEventArgs e)
@@ -114,12 +114,12 @@ internal sealed class LiveScoutHandler
             result.Add(pushItem);
         }
 
-        _logger.LogInformation("These are the available matches: {0}", result);
+        _logger.LogInformation("These are the available matches: {Result}", result.ToString());
     }
 
     public void MatchStopHandler(object sender, MatchStopEventArgs e)
     {
-        _logger.LogInformation("The following match was stopped: {0}", e.MatchId);
+        _logger.LogInformation("The following match was stopped: {MatchId}", e.MatchId);
     }
 
     public void MatchUpdateHandler(object sender, MatchUpdateEventArgs e)
@@ -139,7 +139,7 @@ internal sealed class LiveScoutHandler
         var eventHandlers = GetEventHandlers<ILiveScoutMatchUpdateHandler>();
         
         // Alle Handler informieren
-        foreach (var handler in eventHandlers) handler.Handle(update);
+        foreach (var handler in eventHandlers) handler.Handle(update).GetAwaiter().GetResult();
     }
 
     public void MatchUpdateDeltaHandler(object sender, MatchUpdateEventArgs e)
@@ -159,7 +159,7 @@ internal sealed class LiveScoutHandler
         var eventHandlers = GetEventHandlers<ILiveScoutMatchUpdateDeltaHandler>();
         
         // Alle Handler informieren
-        foreach (var handler in eventHandlers) handler.Handle(update);
+        foreach (var handler in eventHandlers) handler.Handle(update).GetAwaiter().GetResult();
     }
 
     public void MatchUpdateDeltaUpdateHandler(object sender, MatchUpdateEventArgs e)
@@ -181,7 +181,7 @@ internal sealed class LiveScoutHandler
         var eventHandlers = GetEventHandlers<ILiveScoutMatchUpdateDeltaUpdateHandler>();
         
         // Alle Handler informieren
-        foreach (var handler in eventHandlers) handler.Handle(update);
+        foreach (var handler in eventHandlers) handler.Handle(update).GetAwaiter().GetResult();
     }
 
     public void MatchUpdateFullHandler(object sender, MatchUpdateEventArgs e)
@@ -207,7 +207,7 @@ internal sealed class LiveScoutHandler
         var eventHandlers = GetEventHandlers<ILiveScoutMatchUpdateFullHandler>();
         
         // Alle Handler informieren
-        foreach (var handler in eventHandlers) handler.Handle(update);
+        foreach (var handler in eventHandlers) handler.Handle(update).GetAwaiter().GetResult();
     }
 
     public void FeedErrorHandler(object sender, FeedErrorEventArgs e)

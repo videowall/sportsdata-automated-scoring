@@ -1,7 +1,9 @@
+using System.Threading.Tasks;
+
 namespace WBH.Livescoring.SportRadar
 {
     public interface ILiveScoutMatchDataHandler : ILiveScoutEventHandler
     {
-        void Handle(MatchData data);
+        Task Handle(MatchData data);
     }
 }
