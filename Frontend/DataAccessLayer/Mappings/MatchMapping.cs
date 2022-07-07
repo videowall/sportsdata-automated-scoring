@@ -25,6 +25,10 @@ internal sealed class MatchMapping : KeyMappingBase<Match, long>
             .HasConversion<EnumToStringConverter<HomeAway>>()
             .IsRequired();
 
+        entity.Property(e => e.Status)
+            .HasConversion<EnumToStringConverter<Status>>()
+            .IsRequired();
+
         entity.Property(e => e.MatchTime)
             .HasMaxLength(20)
             .IsRequired(false);

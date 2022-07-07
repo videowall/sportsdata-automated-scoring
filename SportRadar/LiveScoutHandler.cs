@@ -148,7 +148,8 @@ internal sealed class LiveScoutHandler
             Serve = (Team)(int)mu.Serve,
             T1Name = mu.MatchHeader?.Team1?.Name?.International,
             T2Name = mu.MatchHeader?.Team2?.Name?.International,
-            TournamentName = mu.Tournament?.Name?.International
+            TournamentName = mu.Tournament?.Name?.International,
+            Status = (ScoutMatchStatus)(int)mu.MatchStatus
         };
 
         // Handler abrufen
@@ -168,7 +169,8 @@ internal sealed class LiveScoutHandler
             Serve = (Team?)(int?)mu.Serve,
             T1Name = mu.MatchHeader?.Team1?.Name?.International,
             T2Name = mu.MatchHeader?.Team2?.Name?.International,
-            TournamentName = mu.Tournament?.Name?.International
+            TournamentName = mu.Tournament?.Name?.International,
+            Status = (ScoutMatchStatus)(int)mu.MatchStatus
         };
 
         // Handler abrufen
@@ -190,7 +192,8 @@ internal sealed class LiveScoutHandler
                 Team2 = s.Team2,
                 Type = s.Type
             }),
-            Serve = (Team)(int)mu.Serve
+            Serve = (Team)(int)mu.Serve,
+            Status = (ScoutMatchStatus)(int)mu.MatchStatus
         };
 
         // Handler abrufen
@@ -216,7 +219,8 @@ internal sealed class LiveScoutHandler
             CourtName = mu.Court.Name,
             TournamentName = mu.Tournament.Name.International,
             T1Name = mu.MatchHeader.Team1.Name.International,
-            T2Name = mu.MatchHeader.Team2.Name.International
+            T2Name = mu.MatchHeader.Team2.Name.International,
+            Status = (ScoutMatchStatus)(int)mu.MatchStatus
         };
 
         // Handler abrufen

@@ -16,6 +16,7 @@ internal sealed class MatchProfile: Profile
             .ForMember(d => d.Id, m => m.Ignore())
             .ForMember(d => d.Scores, m => m.Ignore())
             .ForMember(d => d.Events, m => m.Ignore())
+            .ForMember(d => d.Status, m => m.Ignore())
             .ForMember(d => d.Team1Line1, m => m.Ignore())
             .ForMember(d => d.Team1Line2, m => m.Ignore())
             .ForMember(d => d.Team2Line1, m => m.Ignore())
@@ -34,6 +35,7 @@ internal sealed class MatchProfile: Profile
         CreateMap<MatchData, Entities.Match>(MemberList.Source);
         
         CreateMap<MatchUpdate, Entities.Match>(MemberList.Source)
+            .ForMember(d => d.Status, m => m.MapFrom(s => s.Status ?? ScoutMatchStatus.Undefined))
             .AfterMap((data, entity, context) =>
             {
                 var scores = data.Scores?.ToList() ?? new List<Score>();
@@ -55,6 +57,7 @@ internal sealed class MatchProfile: Profile
             });
         
         CreateMap<MatchUpdateDeltaUpdate, Entities.Match>(MemberList.Source)
+            .ForMember(d => d.Status, m => m.MapFrom(s => s.Status ?? ScoutMatchStatus.Undefined))
             .AfterMap((data, entity, context) =>
             {
                 var scores = data.Scores?.ToList() ?? new List<Score>();
@@ -75,9 +78,11 @@ internal sealed class MatchProfile: Profile
                 }
             });
 
-        CreateMap<MatchUpdateDelta, Entities.Match>(MemberList.Source);
+        CreateMap<MatchUpdateDelta, Entities.Match>(MemberList.Source)
+            .ForMember(d => d.Status, m => m.MapFrom(s => s.Status ?? ScoutMatchStatus.Undefined));
 
-        CreateMap<MatchListItem, Entities.Match>(MemberList.Source);
+        CreateMap<MatchListItem, Entities.Match>(MemberList.Source)
+            .ForMember(d => d.Status, m => m.MapFrom(s => s.MatchStatus ?? ScoutMatchStatus.Undefined));
     }
 
     private string GetPlayerName(string name, long index)

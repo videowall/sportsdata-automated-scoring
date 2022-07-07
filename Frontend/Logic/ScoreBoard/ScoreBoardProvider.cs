@@ -61,7 +61,7 @@ internal sealed class ScoreBoardProvider : IScoreBoardProvider
     {
         if (_context.Query<Entities.Match>().Any(e => e.Id == matchId) == false)
         {
-            _context.Add(new Entities.Match { Id = matchId });
+            _context.Add(new Entities.Match { Id = matchId, Status = Entities.Status.Undefined });
         }
         
         _liveScoutService.SubscribeMatch(matchId);

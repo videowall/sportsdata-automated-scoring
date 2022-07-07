@@ -28,7 +28,7 @@ internal sealed class LiveScoutMatchListHandler : LiveScoutHandlerBase, ILiveSco
             var entity = await GetMatchAsync(match.MatchId);
             if (entity == null)
             {
-                entity = new Entities.Match { Id = match.MatchId };
+                entity = new Entities.Match { Id = match.MatchId, Status = Entities.Status.Undefined };
                 await _context.AddAsync(entity);
             }
 

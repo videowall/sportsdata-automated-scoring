@@ -4,6 +4,6 @@ namespace WBH.Livescoring.SportRadar
     {
         public string CourtName { get; set; }
         public string TournamentName { get; set; }
-        public ScoutMatchStatus MatchStatus { get; set; }
+        public ScoutMatchStatus? MatchStatus { get; set; }
     }
 }

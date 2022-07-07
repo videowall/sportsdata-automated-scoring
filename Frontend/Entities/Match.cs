@@ -30,6 +30,7 @@ public class Match : IEntity<long>
 
     public string MatchTime { get; set; }
     public HomeAway Service { get; set; }
+    public Status Status { get; set; }
 
     #endregion
 }

@@ -14,6 +14,7 @@ public class Match
     public string Team1Line2 { get; set; }
     public string Team2Line1 { get; set; }
     public string Team2Line2 { get; set; }
+    public Entities.Status Status { get; set; }
 
     #endregion
 
@@ -29,7 +30,8 @@ public class Match
             Team1Line1 = x.Team1Line1,
             Team1Line2 = x.Team1Line2,
             Team2Line1 = x.Team2Line1,
-            Team2Line2 = x.Team2Line2
+            Team2Line2 = x.Team2Line2,
+            Status = x.Status
         };
     }
 
