@@ -59,7 +59,8 @@ public class ScoreBoardController : ControllerBase
     {
         try
         {
-            return Ok(_provider.GetScoreBoardInfo(matchId));
+            var info = _provider.GetScoreBoardInfo(matchId);
+            return info == null ? NotFound(matchId) : Ok(info);
         }
         catch (Exception e)
         {
