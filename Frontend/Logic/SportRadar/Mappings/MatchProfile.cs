@@ -84,6 +84,6 @@ internal sealed class MatchProfile: Profile
         if (name == null) return null;
         
         var splittedName = name.Split(",");
-        return splittedName.Length >= 2 ? splittedName[index] : index == 0 ? name : string.Empty;
+        return splittedName.Length >= 2 ? splittedName[index].Trim() : index == 0 ? name.Trim() : string.Empty;
     }
 }
