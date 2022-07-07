@@ -121,10 +121,21 @@ internal sealed class LiveScoutHandler
         foreach (var handler in eventHandlers) await handler.Handle(matches);
     }
 
-    public Task MatchStopHandler(object sender, MatchStopEventArgs e)
+    public async Task MatchStopHandler(object sender, MatchStopEventArgs e)
     {
         _logger.LogInformation("The following match was stopped: {MatchId}", e.MatchId);
-        return Task.CompletedTask;
+
+        var stop = new MatchStop
+        {
+            MatchId = e.MatchId,
+            Reason = e.Reason
+        };
+
+        // Handler abrufen
+        var eventHandlers = GetEventHandlers<ILiveScoutMatchStopHandler>();
+        
+        // Alle Handler informieren
+        foreach (var handler in eventHandlers) await handler.Handle(stop);
     }
 
     public async Task MatchUpdateHandler(object sender, MatchUpdateEventArgs e)
