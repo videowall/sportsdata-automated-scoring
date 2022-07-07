@@ -55,7 +55,45 @@ internal sealed class Context : DbContext, IContext
         await SaveChangesAsync();
     }
 
-    async Task IContext.Delete<TEntity>(TEntity entity)
+    void IContext.Add<TEntity>(TEntity entity)
+    {
+        if (entity == null) return;
+        
+        Add(entity);
+        SaveChanges();
+    }
+
+    async Task IContext.AddAsync<TEntity>(TEntity entity)
+    {
+        if (entity == null) return;
+        
+        await AddAsync(entity);
+        await SaveChangesAsync();
+    }
+
+    void IContext.Update<TEntity>(TEntity entity)
+    {
+        if (entity == null) return;
+        
+        Update(entity);
+        SaveChanges();
+    }
+
+    async Task IContext.UpdateAsync<TEntity>(TEntity entity)
+    {
+        if (entity == null) return;
+        
+        Update(entity);
+        await SaveChangesAsync();
+    }
+
+    void IContext.Delete<TEntity>(TEntity entity)
+    {
+        Remove(entity);
+        SaveChanges();
+    }
+
+    async Task IContext.DeleteAsync<TEntity>(TEntity entity)
     {
         Remove(entity);
         await SaveChangesAsync();

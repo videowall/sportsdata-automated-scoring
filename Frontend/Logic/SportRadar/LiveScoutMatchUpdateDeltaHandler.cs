@@ -23,6 +23,6 @@ internal sealed class LiveScoutMatchUpdateDeltaHandler: LiveScoutHandlerBase, IL
         
         var entity = await GetOrCreateMatchAsync(data.MatchId);
         _mapper.Map(data, entity);
-        await _context.SaveAsync(entity);
+        await _context.UpdateAsync(entity);
     }
 }

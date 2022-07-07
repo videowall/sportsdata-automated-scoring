@@ -34,11 +34,11 @@ internal sealed class LiveScoutMatchBookingReplyHandler : LiveScoutHandlerBase, 
         {
             var entity = await GetOrCreateMatchAsync(reply.MatchId.Value);
             entity.Status.Add(status);
-            await _context.SaveAsync(entity);
+            await _context.UpdateAsync(entity);
         }
         else if (reply.MatchId.HasValue == false)
         {
-            await _context.SaveAsync(status);
+            await _context.UpdateAsync(status);
         }
     }
 
