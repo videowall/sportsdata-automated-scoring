@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -30,7 +31,8 @@ internal sealed class LiveScoutMatchUpdateDeltaUpdateHandler: LiveScoutHandlerBa
         var scores = data.Scores?.ToList() ?? new List<Score>();
         foreach (var score in scores)
         {
-            var scoreDb = _context.Query<Entities.Score>().FirstOrDefault(s => s.MatchId == data.MatchId && s.Type.ToString() == score.Type);
+            var scoreType = (Entities.ScoreType) Enum.Parse(typeof(Entities.ScoreType), score.Type);
+            var scoreDb = _context.Query<Entities.Score>().FirstOrDefault(s => s.MatchId == data.MatchId && s.Type == scoreType);
             if (scoreDb != null)
             {
                 _mapper.Map(score, scoreDb);
