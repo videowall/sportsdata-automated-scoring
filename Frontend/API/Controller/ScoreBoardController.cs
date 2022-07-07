@@ -55,11 +55,28 @@ public class ScoreBoardController : ControllerBase
     /// <remarks>Ruft den aktuellen Spielstand ab.</remarks>
     /// <returns>Spielstand</returns>
     [HttpGet, Route("{matchId}")]
-    public IActionResult Get([FromRoute, Required] long matchId)
+    public IActionResult GetScoreBoardInfo([FromRoute, Required] long matchId)
     {
         try
         {
             return Ok(_provider.GetScoreBoardInfo(matchId));
+        }
+        catch (Exception e)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, e);
+        }
+    }
+
+    /// <summary>
+    /// Verfügbare Spiele abrufen
+    /// </summary>
+    /// <returns>Liste der Spiele</returns>
+    [HttpGet]
+    public IActionResult Get()
+    {
+        try
+        {
+            return Ok(_provider.GetAvailableMatches());
         }
         catch (Exception e)
         {

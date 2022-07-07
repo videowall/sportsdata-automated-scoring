@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using WBH.Livescoring.Frontend.DataAccessLayer.Primitives;
 using WBH.Livescoring.SportRadar;
@@ -64,6 +65,13 @@ internal sealed class ScoreBoardProvider : IScoreBoardProvider
         }
         
         _liveScoutService.SubscribeMatch(matchId);
+    }
+
+    public IEnumerable<Match> GetAvailableMatches()
+    {
+        return _context.Query<Entities.Match>()
+            .Select(Match.Project())
+            .ToList();
     }
 
     #endregion
