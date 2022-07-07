@@ -41,17 +41,17 @@ public sealed class Module : IModule
             var liveScout = sdk.LiveScout;
 
             // Events registrieren
-            liveScout.OnOpened += handler.OnOpened;
-            liveScout.OnClosed += handler.ClosedHandler;
-            liveScout.OnMatchBookingReply += handler.MatchBookingReplyHandler;
-            liveScout.OnMatchData += handler.MatchDataHandler;
-            liveScout.OnMatchList += handler.MatchListHandler;
-            liveScout.OnMatchStop += handler.MatchStopHandler;
-            liveScout.OnMatchUpdate += handler.MatchUpdateHandler;
-            liveScout.OnMatchUpdateDelta += handler.MatchUpdateDeltaHandler;
-            liveScout.OnMatchUpdateDeltaUpdate += handler.MatchUpdateDeltaUpdateHandler;
-            liveScout.OnMatchUpdateFull += handler.MatchUpdateFullHandler;
-            liveScout.OnFeedError += handler.FeedErrorHandler;
+            liveScout.OnOpened += async (sender, e) => await handler.OnOpened(sender, e);
+            liveScout.OnClosed += async (sender, e) => await handler.ClosedHandler(sender, e);
+            liveScout.OnMatchBookingReply += async (sender, e) => await handler.MatchBookingReplyHandler(sender, e);
+            liveScout.OnMatchData += async (sender, e) => await handler.MatchDataHandler(sender, e);
+            liveScout.OnMatchList += async (sender, e) => await handler.MatchListHandler(sender, e);
+            liveScout.OnMatchStop += async (sender, e) => await handler.MatchStopHandler(sender, e);
+            liveScout.OnMatchUpdate += async (sender, e) => await handler.MatchUpdateHandler(sender, e);
+            liveScout.OnMatchUpdateDelta += async (sender, e) => await handler.MatchUpdateDeltaHandler(sender, e);
+            liveScout.OnMatchUpdateDeltaUpdate += async (sender, e) => await handler.MatchUpdateDeltaUpdateHandler(sender, e);
+            liveScout.OnMatchUpdateFull += async (sender, e) => await handler.MatchUpdateFullHandler(sender, e);
+            liveScout.OnFeedError += async (sender, e) => await handler.FeedErrorHandler(sender, e);
 
             // LiveScout registrieren
             return liveScout;

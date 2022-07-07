@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Sportradar.LiveData.Sdk.FeedProviders.Common.Events;
@@ -43,12 +44,13 @@ internal sealed class LiveScoutHandler
             .ToList();
     }
 
-    public void OnOpened(object sender, ConnectionChangeEventArgs e)
+    public Task OnOpened(object sender, ConnectionChangeEventArgs e)
     {
         _logger.LogInformation("We opened a LiveScout for you: {LocalTimestamp}", e.LocalTimestamp);
+        return Task.CompletedTask;
     }
 
-    public void ClosedHandler(object sender, ConnectionChangeEventArgs e)
+    public async Task ClosedHandler(object sender, ConnectionChangeEventArgs e)
     {
         // Loggen
         _logger.LogInformation("LiveScout closed at {Time:dd.MM.yyyy hh:mm:ss}", e.LocalTimestamp);
@@ -57,10 +59,10 @@ internal sealed class LiveScoutHandler
         var eventHandlers = GetEventHandlers<ILiveScoutClosedHandler>();
         
         // Alle Handler informieren
-        foreach (var handler in eventHandlers) handler.Handle(e.LocalTimestamp).GetAwaiter().GetResult();
+        foreach (var handler in eventHandlers) await handler.Handle(e.LocalTimestamp);
     }
 
-    public void MatchBookingReplyHandler(object sender, MatchBookingReplyEventArgs e)
+    public async Task MatchBookingReplyHandler(object sender, MatchBookingReplyEventArgs e)
     {
         // Loggen
         _logger.Log(e.MatchBooking.Result == Sportradar.LiveData.Sdk.FeedProviders.LiveScout.Enums.BookMatchResult.VALID ? LogLevel.Information : LogLevel.Error, "Match {MatchId}: {Message}", e.MatchBooking.MatchId, e.MatchBooking.Message);
@@ -77,10 +79,10 @@ internal sealed class LiveScoutHandler
         var eventHandlers = GetEventHandlers<ILiveScoutMatchBookingReplyHandler>();
         
         // Alle Handler informieren
-        foreach (var handler in eventHandlers) handler.Handle(matchBookingReply).GetAwaiter().GetResult();
+        foreach (var handler in eventHandlers) await handler.Handle(matchBookingReply);
     }
 
-    public void MatchDataHandler(object sender, MatchDataEventArgs e)
+    public async Task MatchDataHandler(object sender, MatchDataEventArgs e)
     {
         var md = e.MatchData;
         var data = new MatchData
@@ -93,10 +95,10 @@ internal sealed class LiveScoutHandler
         var eventHandlers = GetEventHandlers<ILiveScoutMatchDataHandler>();
         
         // Alle Handler informieren
-        foreach (var handler in eventHandlers) handler.Handle(data).GetAwaiter().GetResult();
+        foreach (var handler in eventHandlers) await handler.Handle(data);
     }
 
-    public void MatchListHandler(object sender, MatchListEventArgs e)
+    public Task MatchListHandler(object sender, MatchListEventArgs e)
     {
         var result = new List<MatchListItem>();
         foreach (var item in e.MatchList)
@@ -115,14 +117,16 @@ internal sealed class LiveScoutHandler
         }
 
         _logger.LogInformation("These are the available matches: {Result}", result.ToString());
+        return Task.CompletedTask;
     }
 
-    public void MatchStopHandler(object sender, MatchStopEventArgs e)
+    public Task MatchStopHandler(object sender, MatchStopEventArgs e)
     {
         _logger.LogInformation("The following match was stopped: {MatchId}", e.MatchId);
+        return Task.CompletedTask;
     }
 
-    public void MatchUpdateHandler(object sender, MatchUpdateEventArgs e)
+    public async Task MatchUpdateHandler(object sender, MatchUpdateEventArgs e)
     {
         var mu = e.MatchUpdate;
         var update = new MatchUpdate
@@ -139,10 +143,10 @@ internal sealed class LiveScoutHandler
         var eventHandlers = GetEventHandlers<ILiveScoutMatchUpdateHandler>();
         
         // Alle Handler informieren
-        foreach (var handler in eventHandlers) handler.Handle(update).GetAwaiter().GetResult();
+        foreach (var handler in eventHandlers) await handler.Handle(update);
     }
 
-    public void MatchUpdateDeltaHandler(object sender, MatchUpdateEventArgs e)
+    public async Task MatchUpdateDeltaHandler(object sender, MatchUpdateEventArgs e)
     {
         var mu = e.MatchUpdate;
         var update = new MatchUpdateDelta
@@ -159,10 +163,10 @@ internal sealed class LiveScoutHandler
         var eventHandlers = GetEventHandlers<ILiveScoutMatchUpdateDeltaHandler>();
         
         // Alle Handler informieren
-        foreach (var handler in eventHandlers) handler.Handle(update).GetAwaiter().GetResult();
+        foreach (var handler in eventHandlers) await handler.Handle(update);
     }
 
-    public void MatchUpdateDeltaUpdateHandler(object sender, MatchUpdateEventArgs e)
+    public async Task MatchUpdateDeltaUpdateHandler(object sender, MatchUpdateEventArgs e)
     {
         var mu = e.MatchUpdate;
         var update = new MatchUpdateDeltaUpdate
@@ -181,10 +185,10 @@ internal sealed class LiveScoutHandler
         var eventHandlers = GetEventHandlers<ILiveScoutMatchUpdateDeltaUpdateHandler>();
         
         // Alle Handler informieren
-        foreach (var handler in eventHandlers) handler.Handle(update).GetAwaiter().GetResult();
+        foreach (var handler in eventHandlers) await handler.Handle(update);
     }
 
-    public void MatchUpdateFullHandler(object sender, MatchUpdateEventArgs e)
+    public async Task MatchUpdateFullHandler(object sender, MatchUpdateEventArgs e)
     {
         var mu = e.MatchUpdate;
         var update = new MatchUpdate
@@ -207,12 +211,13 @@ internal sealed class LiveScoutHandler
         var eventHandlers = GetEventHandlers<ILiveScoutMatchUpdateFullHandler>();
         
         // Alle Handler informieren
-        foreach (var handler in eventHandlers) handler.Handle(update).GetAwaiter().GetResult();
+        foreach (var handler in eventHandlers) await handler.Handle(update);
     }
 
-    public void FeedErrorHandler(object sender, FeedErrorEventArgs e)
+    public Task FeedErrorHandler(object sender, FeedErrorEventArgs e)
     {
         _logger?.LogError("Error: {ErrorMessage} {Cause} at {Timestamp}", e.ErrorMessage, e.Cause, e.LocalTimestamp);
+        return Task.CompletedTask;
     }
 
     #endregion
