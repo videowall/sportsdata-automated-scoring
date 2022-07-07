@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using WBH.Livescoring.SportRadar;
 using WBH.Livescoring.SportRadar.Bases;
@@ -12,6 +15,7 @@ internal sealed class MatchProfile: Profile
             .IncludeAllDerived()
             .ForMember(d => d.Id, m => m.Ignore())
             .ForMember(d => d.Scores, m => m.Ignore())
+            .ForMember(d => d.Status, m => m.Ignore())
             .ForMember(d => d.Team1Line1, m => m.Ignore())
             .ForMember(d => d.Team1Line2, m => m.Ignore())
             .ForMember(d => d.Team2Line1, m => m.Ignore())
@@ -29,9 +33,47 @@ internal sealed class MatchProfile: Profile
 
         CreateMap<MatchData, Entities.Match>(MemberList.Source);
         
-        CreateMap<MatchUpdate, Entities.Match>(MemberList.Source);
+        CreateMap<MatchUpdate, Entities.Match>(MemberList.Source)
+            .AfterMap((data, entity, context) =>
+            {
+                var scores = data.Scores?.ToList() ?? new List<Score>();
+                foreach (var score in scores)
+                {
+                    var scoreType = (Entities.ScoreType) Enum.Parse(typeof(Entities.ScoreType), score.Type, true);
+                    var scoreDb = entity.Scores.FirstOrDefault(es => es.Type == scoreType);
+                    if (scoreDb != null)
+                    {
+                        context.Mapper.Map(score, scoreDb);
+                    }
+                    else
+                    {
+                        var newScore = context.Mapper.Map<Entities.Score>(score);
+                        newScore.MatchId = entity.Id;
+                        entity.Scores.Add(newScore);
+                    }
+                }
+            });
         
-        CreateMap<MatchUpdateDeltaUpdate, Entities.Match>(MemberList.Source);
+        CreateMap<MatchUpdateDeltaUpdate, Entities.Match>(MemberList.Source)
+            .AfterMap((data, entity, context) =>
+            {
+                var scores = data.Scores?.ToList() ?? new List<Score>();
+                foreach (var score in scores)
+                {
+                    var scoreType = (Entities.ScoreType) Enum.Parse(typeof(Entities.ScoreType), score.Type, true);
+                    var scoreDb = entity.Scores.FirstOrDefault(es => es.Type == scoreType);
+                    if (scoreDb != null)
+                    {
+                        context.Mapper.Map(score, scoreDb);
+                    }
+                    else
+                    {
+                        var newScore = context.Mapper.Map<Entities.Score>(score);
+                        newScore.MatchId = entity.Id;
+                        entity.Scores.Add(newScore);
+                    }
+                }
+            });
 
         CreateMap<MatchUpdateDelta, Entities.Match>(MemberList.Source);
 
