@@ -15,7 +15,7 @@ internal sealed class MatchProfile: Profile
             .IncludeAllDerived()
             .ForMember(d => d.Id, m => m.Ignore())
             .ForMember(d => d.Scores, m => m.Ignore())
-            .ForMember(d => d.Status, m => m.Ignore())
+            .ForMember(d => d.Events, m => m.Ignore())
             .ForMember(d => d.Team1Line1, m => m.Ignore())
             .ForMember(d => d.Team1Line2, m => m.Ignore())
             .ForMember(d => d.Team2Line1, m => m.Ignore())

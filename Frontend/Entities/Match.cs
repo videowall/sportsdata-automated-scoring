@@ -7,7 +7,7 @@ public class Match : IEntity<long>
     #region NavigationProperties
 
     public virtual ICollection<Score> Scores { get; set; }
-    public virtual ICollection<Status> Status { get; set; }
+    public virtual ICollection<EventStatus> Events { get; set; }
 
     #endregion
 

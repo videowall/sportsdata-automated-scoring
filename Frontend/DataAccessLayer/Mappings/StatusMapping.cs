@@ -4,11 +4,11 @@ using WBH.Livescoring.Frontend.Entities;
 
 namespace WBH.Livescoring.Frontend.DataAccessLayer.Mappings;
 
-public class StatusMapping : KeyMappingBase<Status, long>
+public class StatusMapping : KeyMappingBase<EventStatus, long>
 {
     #region EntityMappingBase
 
-    protected override void AddPropertyMappings(EntityTypeBuilder<Status> entity)
+    protected override void AddPropertyMappings(EntityTypeBuilder<EventStatus> entity)
     {
         entity.Property(e => e.MatchId).IsRequired(false);
 
@@ -22,10 +22,10 @@ public class StatusMapping : KeyMappingBase<Status, long>
             .IsRequired();
     }
 
-    protected override void AddNavigationProperties(EntityTypeBuilder<Status> entity)
+    protected override void AddNavigationProperties(EntityTypeBuilder<EventStatus> entity)
     {
         entity.HasOne(e => e.MatchNavigation)
-            .WithMany(d => d.Status)
+            .WithMany(d => d.Events)
             .HasForeignKey(e => e.MatchId)
             .OnDelete(DeleteBehavior.Cascade);
     }

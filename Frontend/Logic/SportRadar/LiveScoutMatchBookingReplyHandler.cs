@@ -29,10 +29,10 @@ internal sealed class LiveScoutMatchBookingReplyHandler : LiveScoutHandlerBase, 
     {
         if (reply == null) return;
 
-        var status = new Entities.Status {Happened = DateTime.UtcNow, MatchId = reply.MatchId, Message = reply.Message};
+        var entity = new Entities.EventStatus {Happened = DateTime.UtcNow, MatchId = reply.MatchId, Message = reply.Message};
         if (reply.Result == BookMatchResult.Valid && reply.MatchId.HasValue)
         {
-            await _context.AddAsync(status);
+            await _context.AddAsync(entity);
         }
     }
 

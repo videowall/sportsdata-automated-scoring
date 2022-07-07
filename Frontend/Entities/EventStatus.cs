@@ -2,7 +2,7 @@
 
 namespace WBH.Livescoring.Frontend.Entities;
 
-public class Status : IEntity<long>
+public class EventStatus : IEntity<long>
 {
     #region IEntity
 
