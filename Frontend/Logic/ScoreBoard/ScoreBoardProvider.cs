@@ -29,6 +29,7 @@ internal sealed class ScoreBoardProvider : IScoreBoardProvider
     public ScoreBoardInfo GetScoreBoardInfo(long matchId)
     {
         return _context.Query<Entities.Match>()
+            .Where(e => e.Id == matchId)
             .Include(e => e.Scores)
             .Select(x => new ScoreBoardInfo
             {
