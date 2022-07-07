@@ -57,6 +57,8 @@ internal sealed class ScoreBoardProvider : IScoreBoardProvider
 
     public void BookMatch(long matchId)
     {
+        var entity = _context.Query<Entities.Match>().FirstOrDefault(e => e.Id == matchId) ?? new Entities.Match { Id = matchId };
+        _context.Save(entity);
         _liveScoutService.SubscribeMatch(matchId);
     }
 
