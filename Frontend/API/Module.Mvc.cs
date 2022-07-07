@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json.Converters;
 
 namespace WBH.Livescoring.Frontend.API;
 
@@ -8,7 +9,7 @@ public sealed partial class Module
 
     private static void RegisterMvc(IServiceCollection container)
     {
-        container.AddMvc().AddNewtonsoftJson();
+        container.AddMvc().AddNewtonsoftJson(opts => opts.SerializerSettings.Converters.Add(new StringEnumConverter()));
     }
 
     #endregion
