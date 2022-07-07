@@ -16,7 +16,7 @@ public sealed partial class Module
         var assembly = Assembly.GetExecutingAssembly().GetName();
         container.AddSwaggerGen(c =>
         {
-            c.SwaggerDoc("Frontend", new OpenApiInfo
+            c.SwaggerDoc("v" + assembly.Version?.Major, new OpenApiInfo
             {
                 Title = $"{assembly.Name}",
                 Version = assembly.Version?.ToString() ?? "1.0.0",

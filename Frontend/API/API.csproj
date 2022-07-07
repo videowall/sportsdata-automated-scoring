@@ -10,10 +10,10 @@
 		<RepositoryType>GIT</RepositoryType>
 		<AssemblyName>WBH.Livescoring.Frontend.API</AssemblyName>
 		<RootNamespace>WBH.Livescoring.Frontend.API</RootNamespace>
-		<Version>0.0.0.0</Version>
-		<AssemblyVersion>0.0.0.0</AssemblyVersion>
-		<AssemblyInformationalVersion>0.0.0.0</AssemblyInformationalVersion>
-		<FileVersion>0.0.0.0</FileVersion>
+		<Version>1.0.0.0</Version>
+		<AssemblyVersion>1.0.0.0</AssemblyVersion>
+		<AssemblyInformationalVersion>1.0.0.0</AssemblyInformationalVersion>
+		<FileVersion>1.0.0.0</FileVersion>
 	</PropertyGroup>
 
 	<PropertyGroup>
