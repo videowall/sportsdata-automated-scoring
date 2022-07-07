@@ -10,6 +10,7 @@ public sealed partial class Module
     private static void RegisterBackgroundJobs(IServiceCollection container)
     {
         container.AddHostedService<SportRadarBackgroundService>();
+        container.AddHostedService<SportRadarUpdateBackgroundService>();
     }
 
     #endregion

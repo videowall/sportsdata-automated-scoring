@@ -48,5 +48,10 @@ internal sealed class LiveScoutService : ILiveScoutService
         _liveScout.Value.Subscribe(new []{matchId});
     }
 
+    public void GetMatchList(int hoursBack, int hoursForwarded, bool includeAvailable = false)
+    {
+        _liveScout.Value.GetMatchList(hoursBack, hoursForwarded, includeAvailable);
+    }
+
     #endregion
 }
