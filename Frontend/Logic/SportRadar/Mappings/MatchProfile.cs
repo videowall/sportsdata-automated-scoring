@@ -21,25 +21,9 @@ internal sealed class MatchProfile: Profile
 
         CreateMap<MatchData, Entities.Match>(MemberList.Source);
         
-        CreateMap<MatchUpdate, Entities.Match>(MemberList.Source)
-            .ForMember(d => d.Scores, m => m.MapFrom(s => s.Scores))
-            .AfterMap((s, d) =>
-            {
-                foreach (var score in d.Scores)
-                {
-                    score.MatchId = s.MatchId;
-                }
-            });
+        CreateMap<MatchUpdate, Entities.Match>(MemberList.Source);
         
-        CreateMap<MatchUpdateDeltaUpdate, Entities.Match>(MemberList.Source)
-            .ForMember(d => d.Scores, m => m.MapFrom(s => s.Scores))
-            .AfterMap((s, d) =>
-            {
-                foreach (var score in d.Scores)
-                {
-                    score.MatchId = s.MatchId;
-                }
-            });
+        CreateMap<MatchUpdateDeltaUpdate, Entities.Match>(MemberList.Source);
 
         CreateMap<MatchUpdateDelta, Entities.Match>(MemberList.Source);
 
