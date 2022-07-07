@@ -98,26 +98,27 @@ internal sealed class LiveScoutHandler
         foreach (var handler in eventHandlers) await handler.Handle(data);
     }
 
-    public Task MatchListHandler(object sender, MatchListEventArgs e)
+    public async Task MatchListHandler(object sender, MatchListEventArgs e)
     {
-        var result = new List<MatchListItem>();
-        foreach (var item in e.MatchList)
-        {
-            var pushItem = new MatchListItem
+        var matches = e.MatchList?
+            .Select(item => new MatchListItem
             {
                 MatchId = item.MatchHeader.MatchId,
-                T1Name = item.MatchHeader.Team1.Name.International,
-                T2Name = item.MatchHeader.Team2.Name.International,
-                CourtName = item.Court.Name,
-                TournamentName = item.Tournament.Name.International,
+                T1Name = item.MatchHeader?.Team1?.Name?.International,
+                T2Name = item.MatchHeader?.Team2?.Name?.International,
+                CourtName = item.Court?.Name,
+                TournamentName = item.Tournament?.Name?.International,
                 MatchStatus = (ScoutMatchStatus)(int)item.MatchStatus
-            };
+            })
+            .ToList() ?? new List<MatchListItem>();
 
-            result.Add(pushItem);
-        }
+        _logger.LogInformation("These are the available matches: {Result}", matches.ToString());
 
-        _logger.LogInformation("These are the available matches: {Result}", result.ToString());
-        return Task.CompletedTask;
+        // Handler abrufen
+        var eventHandlers = GetEventHandlers<ILiveScoutMatchListHandler>();
+        
+        // Alle Handler informieren
+        foreach (var handler in eventHandlers) await handler.Handle(matches);
     }
 
     public Task MatchStopHandler(object sender, MatchStopEventArgs e)

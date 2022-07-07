@@ -77,6 +77,7 @@ internal sealed class MatchProfile: Profile
 
         CreateMap<MatchUpdateDelta, Entities.Match>(MemberList.Source);
 
+        CreateMap<MatchListItem, Entities.Match>(MemberList.Source);
     }
 
     private string GetPlayerName(string name, long index)
