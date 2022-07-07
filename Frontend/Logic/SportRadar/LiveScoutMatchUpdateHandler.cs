@@ -26,8 +26,9 @@ internal sealed class LiveScoutMatchUpdateHandler: LiveScoutHandlerBase, ILiveSc
         var entity = await GetMatchAsync(data.MatchId);
         _mapper.Map(data, entity);
         await _context.UpdateAsync(entity);
-        
-        foreach (var score in data.Scores)
+
+        var scores = data.Scores?.ToList() ?? new List<Score>();
+        foreach (var score in scores)
         {
             var scoreDb = _context.Query<Entities.Score>().FirstOrDefault(s => s.MatchId == data.MatchId && s.Type.ToString() == score.Type);
             if (scoreDb != null)

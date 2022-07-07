@@ -32,7 +32,7 @@ internal sealed class Context : DbContext, IContext
         }
         else
         {
-            Update(entity);
+            //Update(entity);
         }
 
         SaveChanges();
@@ -49,7 +49,7 @@ internal sealed class Context : DbContext, IContext
         }
         else
         {
-            Update(entity);
+            //Update(entity);
         }
 
         await SaveChangesAsync();
