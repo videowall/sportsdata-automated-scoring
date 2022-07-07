@@ -63,7 +63,7 @@ internal sealed class SportRadarUpdateBackgroundService : IHostedService, IDispo
     private void DoWork(object state)
     {
         _logger.LogDebug("Get Match List");
-        _service.GetMatchList(24, 24);
+        _service.GetMatchList(2, 10, true);
     }
 
     #endregion
