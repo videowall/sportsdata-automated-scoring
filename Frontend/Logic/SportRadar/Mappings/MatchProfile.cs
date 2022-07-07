@@ -11,14 +11,21 @@ internal sealed class MatchProfile: Profile
         CreateMap<MatchIdBase, Entities.Match>(MemberList.None)
             .IncludeAllDerived()
             .ForMember(d => d.Id, m => m.Ignore())
-            .ForMember(d => d.Scores, m => m.Ignore());
+            .ForMember(d => d.Scores, m => m.Ignore())
+            .ForMember(d => d.Team1Line1, m => m.Ignore())
+            .ForMember(d => d.Team1Line2, m => m.Ignore())
+            .ForMember(d => d.Team2Line1, m => m.Ignore())
+            .ForMember(d => d.Team2Line2, m => m.Ignore());
 
         CreateMap<MatchBase, Entities.Match>(MemberList.None)
             .IncludeAllDerived()
-            .ForMember(d => d.Team1Line1, m => m.MapFrom(s => GetPlayerName(s.T1Name, 0)))
-            .ForMember(d => d.Team1Line2, m => m.MapFrom(s => GetPlayerName(s.T1Name, 1)))
-            .ForMember(d => d.Team2Line1, m => m.MapFrom(s => GetPlayerName(s.T2Name, 0)))
-            .ForMember(d => d.Team2Line2, m => m.MapFrom(s => GetPlayerName(s.T2Name, 1)));
+            .AfterMap((s, d) =>
+            {
+                d.Team1Line1 = s.T1Name != null ? GetPlayerName(s.T1Name, 0) : d.Team1Line1;
+                d.Team1Line2 = s.T1Name != null ? GetPlayerName(s.T1Name, 1) : d.Team1Line2;
+                d.Team2Line1 = s.T2Name != null ? GetPlayerName(s.T2Name, 0) : d.Team2Line1;
+                d.Team2Line2 = s.T2Name != null ? GetPlayerName(s.T2Name, 1) : d.Team2Line2;
+            });
 
         CreateMap<MatchData, Entities.Match>(MemberList.Source);
         
