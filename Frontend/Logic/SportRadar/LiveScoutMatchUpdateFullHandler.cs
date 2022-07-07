@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using WBH.Livescoring.Frontend.DataAccessLayer.Primitives;
@@ -24,5 +26,22 @@ internal sealed class LiveScoutMatchUpdateFullHandler: LiveScoutHandlerBase, ILi
         var entity = await GetMatchAsync(data.MatchId);
         _mapper.Map(data, entity);
         await _context.UpdateAsync(entity);
+        
+        var scores = data.Scores?.ToList() ?? new List<Score>();
+        foreach (var score in scores)
+        {
+            var scoreDb = _context.Query<Entities.Score>().FirstOrDefault(s => s.MatchId == data.MatchId && s.Type.ToString() == score.Type);
+            if (scoreDb != null)
+            {
+                _mapper.Map(score, scoreDb);
+                await _context.UpdateAsync(scoreDb);
+            }
+            else
+            {
+                var newScore = _mapper.Map<Entities.Score>(score);
+                newScore.MatchId = entity.Id;
+                await _context.AddAsync(newScore);
+            }
+        }
     }
 }
