@@ -15,6 +15,8 @@ internal abstract class LiveScoutHandlerBase: ILiveScoutEventHandler
           _context = context;
      }
      
-     protected Entities.Match GetOrCreateMatch(long matchId) => _context.Query<Entities.Match>().FirstOrDefault(e => e.Id == matchId) ?? new Entities.Match{Id=matchId};
-     protected async Task<Entities.Match> GetOrCreateMatchAsync(long matchId) => await _context.Query<Entities.Match>().FirstOrDefaultAsync(e => e.Id == matchId) ?? new Entities.Match{Id=matchId};
+     protected Entities.Match GetOrCreateMatch(long matchId) => _context.Query<Entities.Match>().Include(e => e.Scores).FirstOrDefault(e => e.Id == matchId) ?? new Entities.Match{Id=matchId};
+     protected async Task<Entities.Match> GetOrCreateMatchAsync(long matchId) => await _context.Query<Entities.Match>().Include(e => e.Scores).FirstOrDefaultAsync(e => e.Id == matchId) ?? new Entities.Match{Id=matchId};
+     protected Entities.Match GetMatch(long matchId) => _context.Query<Entities.Match>().Include(e => e.Scores).FirstOrDefault(e => e.Id == matchId);
+     protected async Task<Entities.Match> GetMatchAsync(long matchId) => await _context.Query<Entities.Match>().Include(e => e.Scores).FirstOrDefaultAsync(e => e.Id == matchId);
 }

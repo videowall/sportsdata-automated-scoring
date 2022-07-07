@@ -32,13 +32,7 @@ internal sealed class LiveScoutMatchBookingReplyHandler : LiveScoutHandlerBase, 
         var status = new Entities.Status {Happened = DateTime.UtcNow, MatchId = reply.MatchId, Message = reply.Message};
         if (reply.Result == BookMatchResult.Valid && reply.MatchId.HasValue)
         {
-            var entity = await GetOrCreateMatchAsync(reply.MatchId.Value);
-            entity.Status.Add(status);
-            await _context.UpdateAsync(entity);
-        }
-        else if (reply.MatchId.HasValue == false)
-        {
-            await _context.UpdateAsync(status);
+            await _context.AddAsync(status);
         }
     }
 
