@@ -10,7 +10,8 @@ internal sealed class MatchProfile: Profile
     {
         CreateMap<MatchIdBase, Entities.Match>(MemberList.None)
             .IncludeAllDerived()
-            .ForMember(d => d.Id, m => m.Ignore());
+            .ForMember(d => d.Id, m => m.Ignore())
+            .ForMember(d => d.Scores, m => m.Ignore());
 
         CreateMap<MatchBase, Entities.Match>(MemberList.None)
             .IncludeAllDerived()
