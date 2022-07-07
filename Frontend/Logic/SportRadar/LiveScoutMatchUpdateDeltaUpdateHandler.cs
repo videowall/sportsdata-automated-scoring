@@ -25,16 +25,22 @@ internal sealed class LiveScoutMatchUpdateDeltaUpdateHandler: LiveScoutHandlerBa
         
         var entity = await GetMatchAsync(data.MatchId);
         _mapper.Map(data, entity);
-        var scores = _mapper.Map<IList<Entities.Score>>(data.Scores);
-        foreach (var score in scores)
-        {
-            var scoreSet = entity.Scores.FirstOrDefault(s => s.Type == score.Type);
-            if (scoreSet != null)
-            {
-                entity.Scores.Remove(scoreSet);
-            }
-            entity.Scores.Add(score);
-        }
         await _context.UpdateAsync(entity);
+        
+        foreach (var score in data.Scores)
+        {
+            var scoreDb = _context.Query<Entities.Score>().FirstOrDefault(s => s.MatchId == data.MatchId && s.Type.ToString() == score.Type);
+            if (scoreDb != null)
+            {
+                _mapper.Map(score, scoreDb);
+                await _context.UpdateAsync(scoreDb);
+            }
+            else
+            {
+                var newScore = _mapper.Map<Entities.Score>(score);
+                newScore.MatchId = entity.Id;
+                await _context.AddAsync(newScore);
+            }
+        }
     }
 }
