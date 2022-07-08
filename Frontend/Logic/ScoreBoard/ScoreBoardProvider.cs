@@ -70,6 +70,7 @@ internal sealed class ScoreBoardProvider : IScoreBoardProvider
     public IEnumerable<Match> GetAvailableMatches()
     {
         return _context.Query<Entities.Match>()
+            .Where(m => m.Status != Entities.Status.Ended && m.Status != Entities.Status.NotStarted)
             .Select(Match.Project())
             .ToList();
     }
