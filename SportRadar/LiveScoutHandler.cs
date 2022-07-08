@@ -101,7 +101,7 @@ internal sealed class LiveScoutHandler
     public async Task MatchListHandler(object sender, MatchListEventArgs e)
     {
         var matches = e.MatchList?
-            .Where(m => m.Category.Name.International.StartsWith("ITF", StringComparison.InvariantCultureIgnoreCase))
+            .Where(m => m.Sport.Name.International.Equals("Tennis", StringComparison.InvariantCultureIgnoreCase))
             .Select(item => new MatchListItem
             {
                 MatchId = item.MatchHeader.MatchId,
